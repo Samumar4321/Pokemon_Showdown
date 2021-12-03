@@ -21,11 +21,10 @@ Dopo aver stabilito la connesione si invia il pokemon evocato:
 	-p;nomePokemon;vitaRimanente;numeroPokemonRimasti;	
 
 FASE DI ATTACCO
-Quando è il proprio turno:
-	
-	-at;nomeMossa;eventualiBonus(separati da "-");
+Quando è il proprio turno:	
+	-at;nomeMossa;danno; --> attacco
 	//oppure\\
-	-og;nomeOggetto; --> usare un oggetto;
+	-og;nomeOggetto; --> usare un oggetto
 	//oppure\\
 	-p;nomePokemon;vitaRimanente; --> cambio pokemon
 
@@ -38,3 +37,13 @@ invia
 	-c;
 
 
+
+
+
+
+
+IMPLEMENTAZIONE DI ALCUNE MECCANICHE
+-I turni hanno un tempo prestabilito, dopo 2/3 turni in timeout hai perso automaticamente 
+	(forma che evita battaglie infinite nel caso sia afk o si perdano i pacchetti)
+-Le mosse devono essere cotrollate in modo che sia implementata la mecchanica del superefficace e non efficace
+-Possibile implementazione di uno shop dove comprare oggetti consumabili, i gold si vncono nelle battaglie
