@@ -5,6 +5,7 @@
  */
 package pokemon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,9 @@ public class NewMain {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
+        /*
         List effetti;
         effetti = new ArrayList();
         effetti.add("ciao");
@@ -27,6 +29,13 @@ public class NewMain {
         for (int i = 0; i < effetti.size(); i++) {
             System.out.println("Lita numero:" + i + "--" + effetti.get(i));
         }
+*/
+        GestoreFIle gf = new GestoreFIle("tipi.txt");
+        List<Tipo> tp = gf.loadTipi();
+        for (Tipo t : tp) {
+            System.out.println(t.toString() + "\n\n");
+        }
+       
     }
 
 }
