@@ -18,13 +18,13 @@ import java.util.List;
  */
 public class GestoreFIle {
 
-    String path;
+    Condivisa c;
 
-    public GestoreFIle(String path) {
-        this.path = path;
+    public GestoreFIle(Condivisa c) {
+        this.c = c;
     }
 
-    public List<Tipo> loadTipi() throws FileNotFoundException, IOException {
+    public List<Tipo> loadTipi(String path) throws FileNotFoundException, IOException {
 
         List<Tipo> tipi = new ArrayList<Tipo>();
         File file = new File(path);
@@ -32,7 +32,7 @@ public class GestoreFIle {
         BufferedReader br = new BufferedReader(fr);
         for (String line = ""; (line = br.readLine()) != null;) {
             String[] csv = line.split(";");
-            Tipo t = new Tipo(Integer.parseInt(csv[0]),csv[1]);
+            Tipo t = new Tipo(Integer.parseInt(csv[0]), csv[1]);
             String[] temp = csv[2].split("-");
             for (int i = 0; i < temp.length; i++) {
                 t.addStrenght(temp[i]);
@@ -52,6 +52,32 @@ public class GestoreFIle {
 
             tipi.add(t);
         }
+        br.close();
         return tipi;
+    }
+
+    public List<Mossa> loadMosse(String path) throws FileNotFoundException, IOException {
+
+        List<Mossa> mosse = new ArrayList<Mossa>();
+        File file = new File(path);
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        for (String line = ""; (line = br.readLine()) != null;) {
+            String[] csv = line.split(";");
+            Tipo t = null;
+            for (int i = 0; i < c.tipi.size(); i++) {
+                if (Integer.parseInt(csv[2]) == c.tipi.get(i).getId()) {
+                    t = c.tipi.get(i);
+                    break;
+                }
+            }
+            if (t != null) {
+                //id, nome, tipo, danno, effetto
+                Mossa m = new Mossa(Integer.parseInt(csv[0]), csv[1], t, Integer.parseInt(csv[3]), null);
+                mosse.add(m);
+            }
+        }
+        br.close();
+        return mosse;
     }
 }

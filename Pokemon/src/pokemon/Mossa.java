@@ -58,7 +58,29 @@ public class Mossa {
     }
 
     public Mossa() {
+        this.id = 0;
+        this.tipo = null;
+        this.nome = "";
+        this.dannoBase = 0;
+        this.effetto = null;
+    }
 
+    public Mossa(int id, String nome, Tipo tipo, int dannoBase, Object effetto) {
+        this.id = id;
+        this.tipo = tipo;
+        this.nome = nome;
+        this.dannoBase = dannoBase;
+        this.effetto = effetto;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str = id + "\t" + nome + ":\n";
+        str += "\t\tTipo: " + tipo.getNome() + "\n";
+        str += "\t\tDanno: " + dannoBase + "\n";
+        str += "\t\tEffetto: " + "\n";
+        return str;
     }
 
 }

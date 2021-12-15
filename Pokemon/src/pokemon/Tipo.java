@@ -13,13 +13,14 @@ import java.util.List;
  * @author marelli_samuele
  */
 public class Tipo {
+
     private int id;
     private String nome;
     private List<String> Do_twotimedamage;
     private List<String> Do_halfdamage;
     private List<String> Do_nodamage;
 
-    public Tipo(int id,String name) {
+    public Tipo(int id, String name) {
         this.id = id;
         nome = name;
         Do_twotimedamage = new ArrayList<String>();
@@ -58,8 +59,23 @@ public class Tipo {
         return str;
     }
 
-}
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+}
 
 //normale;;roccia-acciaio;spettro;
 //lotta;normale-roccia-acciao-ghiaccio-buio;volante-veleno-coleottero-psico-folletto;spettro;
