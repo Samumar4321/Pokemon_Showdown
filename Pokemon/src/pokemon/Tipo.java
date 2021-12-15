@@ -13,13 +13,14 @@ import java.util.List;
  * @author marelli_samuele
  */
 public class Tipo {
-
+    private int id;
     private String nome;
     private List<String> Do_twotimedamage;
     private List<String> Do_halfdamage;
     private List<String> Do_nodamage;
 
-    public Tipo(String name) {
+    public Tipo(int id,String name) {
+        this.id = id;
         nome = name;
         Do_twotimedamage = new ArrayList<String>();
         Do_halfdamage = new ArrayList<String>();
@@ -41,7 +42,7 @@ public class Tipo {
     @Override
     public String toString() {
         String str = "";
-        str = nome + ":\n";
+        str = id + "\t" + nome + ":\n";
         str += "\t2x damage:\n";
         for (int i = 0; i < Do_twotimedamage.size(); i++) {
             str += "\t\t" + Do_twotimedamage.get(i) + "\n";

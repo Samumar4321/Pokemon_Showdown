@@ -1,0 +1,40 @@
+1;scintilla;elettro;6;nulla;
+2;Cannonflash (acciaio) danno 100
+3;Sprizzalampo (elettro) danno 90
+4;Tuononda (elettro) danno 0 --> PARALIZZA
+5;Dragospiro (drago) danno 6
+6;Cozzata zen (psico) danno 12
+7;Dragartigli (drago) danno 50
+8;Schermoluce (psico) danno 0 --> -40% DANNI(idea: alzare difesa)
+9;Dragospiro (drago) danno 6
+10;Oscurotuffo (spettro) danno 120
+11;Ombrartigli (spettro) danno 70
+12;Fuocofatuo (fuoco) danno 5 a turno --> SCOTTA
+13;tuonoshock (elettro) danno 40
+14;Tuonopugno (elettro) danno 75
+15;Fulmine (elettro) danno 110
+16;Fulmisguardo (normale) danno 0 --> -30% DIFESA  
+17;Pistolacqua (acqua) danno 40
+18;Geloscheggia (ghiaccio) danno 40
+19;Idropompa (acqua) danno 110
+20;Canto (normale) danno 0 --> ADDORMENTA
+21;Lanciafiamme (fuoco) danno 90
+22;Robodenti (fuoco) danno 65
+23;Eterelama (volante) danno 75
+24;Dragodanza (drago) danno 0 --> +20% ATTACCO
+25;Pistolacqua (acqua) danno 40
+26;IdroPulsar (acqua) danno 60
+27;Mulinello (acqua) danno 35
+28;Amnesia (psico) danno 0 --> DIFESA +40%
+29;Velenodenti (veleno) danno 50
+30;Velenoshock (veleno) danno 65
+31;Aerasoio (volante) danno 60
+32;Stridio (normale) danno 0 --> -40% DIFESA
+33;Energipalla (erba) danno 90
+34;Fendifoglia (erba) danno 90
+35;Verdebufera (erba) danno 130
+36;Campoerboso (erba) danno -20 --> CURA TUTTI I POKEMON DI 20
+37;Pisichico (psico) danno 90
+38;Nebbioscoppio (folletto) danno 100
+39;Vastemergia (psico) danni 80
+40;Amnesia (psico) danno 0 --> DIFESA +40%
