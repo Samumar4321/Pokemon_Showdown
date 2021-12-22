@@ -28,6 +28,14 @@ public class Tipo {
         Do_nodamage = new ArrayList<String>();
     }
 
+    public Tipo() {
+        this.id = 0;
+        nome = "";
+        Do_twotimedamage = new ArrayList<String>();
+        Do_halfdamage = new ArrayList<String>();
+        Do_nodamage = new ArrayList<String>();
+    }
+
     public void addWeakness(String name) {
         Do_halfdamage.add(name);
     }

@@ -80,4 +80,51 @@ public class GestoreFIle {
         br.close();
         return mosse;
     }
+
+    public List<Pokemon> loadPokemon(String path) throws FileNotFoundException, IOException {
+
+        List<Pokemon> pks = new ArrayList<Pokemon>();
+        File file = new File(path);
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        for (String line = ""; (line = br.readLine()) != null;) {
+            String[] csv = line.split(";");
+            Pokemon pokemon = new Pokemon();
+            pokemon.setId(Integer.parseInt(csv[0]));
+            pokemon.setNome(csv[1]);
+            pokemon.setVita(Integer.parseInt(csv[2]));
+            pokemon.setAttacco(Integer.parseInt(csv[3]));
+            pokemon.setDifesa(Integer.parseInt(csv[4]));
+            String[] temp = csv[5].split("-");
+            for (int j = 0; j < temp.length; j++) {
+                Tipo tp = null;
+                for (int i = 0; i < c.tipi.size(); i++) {
+                    if (Integer.parseInt(temp[j]) == c.tipi.get(i).getId()) {
+                        tp = c.tipi.get(i);
+                        pokemon.addTipo(tp);
+                        break;
+                    }
+                }
+
+            }
+            temp = csv[6].split("-");
+            for (int j = 0; j < temp.length; j++) {
+                Mossa m = null;
+                for (int i = 0; i < c.mosse.size(); i++) {
+                    if (Integer.parseInt(temp[j]) == c.mosse.get(i).getId()) {
+                        m = c.mosse.get(i);
+                        pokemon.addMosa(m);
+                        break;
+                    }
+                }
+
+            }
+            pokemon.setImgFront(csv[7]);
+            pokemon.setImgBack(csv[8]);
+            pks.add(pokemon);
+          
+        }
+        br.close();
+        return pks;
+    }
 }

@@ -19,7 +19,9 @@ public class Condivisa {
     List<Mossa> mosse;
     List<Object> effetti;
     List<Tipo> tipi;
-    public Condivisa() {
+    private static Condivisa instance;
+
+    private Condivisa() {
         consumabili = new ArrayList();
         pokemons = new ArrayList();
         mosse = new ArrayList();
@@ -27,4 +29,14 @@ public class Condivisa {
         tipi = new ArrayList<Tipo>();
     }
 
+    public static Condivisa getInstance() {
+        if (instance == null) {
+            synchronized (Condivisa.class) {
+                if (instance == null) {
+                    instance = new Condivisa();
+                }
+            }
+        }
+        return instance;
+    }
 }
