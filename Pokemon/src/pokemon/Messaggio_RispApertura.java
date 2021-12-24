@@ -25,24 +25,24 @@ public class Messaggio_RispApertura extends Messaggio {
 
     @Override
     public void execute() {
-//        System.out.println("DENTRO MESS_RISP_APER_EXEC");
-//        String[] csv = new String(packet.getData()).split(";");
-//        String risp = csv[0];
-//        if (risp.equals("y") && c.isMittente()) {
-//            c.connected = true;
-//            c.nomeDestinatario = csv[1];
-//            String str = "y;";
-//            try {
-//                send(str);
-//            } catch (IOException ex) {
-//                Logger.getLogger(Messaggio_RispApertura.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } else if (risp.equals("y")) {         
-//            c.connected = true;
-//        } else if (risp.equals("n")) {
-//
-//        }
-//        System.out.println("USCITO MESS_RISP_APER_EXEC\n");
+        System.out.println("DENTRO MESS_RISP_APER_EXEC");
+        String[] csv = new String(packet.getData()).split(";");
+        String risp = csv[0];
+        if (risp.equals("y") && c.isMittente()) {
+            c.connected = true;
+            c.nomeDestinatario = csv[1];
+            String str = "y;";
+            try {
+                send(str);
+            } catch (IOException ex) {
+                Logger.getLogger(Messaggio_RispApertura.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (risp.equals("y")) {         
+            c.connected = true;
+        } else if (risp.equals("n")) {
+
+        }
+        System.out.println("USCITO MESS_RISP_APER_EXEC\n");
     }
 
 }

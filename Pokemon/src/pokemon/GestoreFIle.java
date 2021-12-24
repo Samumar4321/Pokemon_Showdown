@@ -71,9 +71,13 @@ public class GestoreFIle {
                     break;
                 }
             }
+            ContainerEff eff = null;
+            if (Integer.parseInt(csv[4]) < c.effetti.size() && Integer.parseInt(csv[4]) > 0) {
+                eff = c.effetti.get(Integer.parseInt(csv[4]));
+            }
             if (t != null) {
                 //id, nome, tipo, danno, effetto
-                Mossa m = new Mossa(Integer.parseInt(csv[0]), csv[1], t, Integer.parseInt(csv[3]), null);
+                Mossa m = new Mossa(Integer.parseInt(csv[0]), csv[1], t, Integer.parseInt(csv[3]), eff);
                 mosse.add(m);
             }
         }
@@ -92,7 +96,8 @@ public class GestoreFIle {
             Pokemon pokemon = new Pokemon();
             pokemon.setId(Integer.parseInt(csv[0]));
             pokemon.setNome(csv[1]);
-            pokemon.setVita(Integer.parseInt(csv[2]));
+            pokemon.setVitaMax(Integer.parseInt(csv[2]));
+            pokemon.setVitaAttuale(Integer.parseInt(csv[2]));
             pokemon.setAttacco(Integer.parseInt(csv[3]));
             pokemon.setDifesa(Integer.parseInt(csv[4]));
             String[] temp = csv[5].split("-");
@@ -122,7 +127,7 @@ public class GestoreFIle {
             pokemon.setImgFront(csv[7]);
             pokemon.setImgBack(csv[8]);
             pks.add(pokemon);
-          
+
         }
         br.close();
         return pks;

@@ -21,7 +21,7 @@ public class Messaggio_Chiusura extends Messaggio{
 
     @Override
     public void execute() {
-//        c.connected = false;        
+        c.connected = false;        
     }
     
     

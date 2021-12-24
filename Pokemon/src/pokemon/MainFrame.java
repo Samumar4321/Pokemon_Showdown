@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -98,7 +99,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, InterruptedException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -132,10 +133,23 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         });
+        Thread.sleep(5000);
         ThreadPaint tp = new ThreadPaint();
         tp.start();
 
+        Condivisa c = Condivisa.getInstance();
+        Pokemon p = c.pokemons.get(0);
+        p.addEffetto(c.effetti.get(2));
+        p.eseguiEffetti();
+        System.out.println("ciao");
+        p.eseguiEffetti();
+        System.out.println("ciao");
+        p.eseguiEffetti();
+        System.out.println("ciao");
+        p.eseguiEffetti();
+        System.out.println("ciao");
     }
+
     String urlFront = "";
     String urlBack = "";
 
@@ -160,6 +174,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void LoadGame() throws IOException {
         Condivisa c = Condivisa.getInstance();
+        c.effetti = loadEffetti();
         GestoreFIle gf = new GestoreFIle(c);
         List<Tipo> tp = gf.loadTipi("tipi.txt");
         System.out.println("-------------------TIPI-------------------");
@@ -179,6 +194,33 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println(p.toString() + "\n\n");
         }
         c.pokemons = pks;
+    }
+
+    private List<ContainerEff> loadEffetti() {
+        int i = 0;
+        List<ContainerEff> effetti = new ArrayList<ContainerEff>();
+        Eff_Veleno v = new Eff_Veleno(0, "veleno", 4, 8);
+        ContainerEff e1 = new ContainerEff((Inteface) v);
+        effetti.add(e1);
+
+        Eff_Congelamento c = new Eff_Congelamento(1, "congelamento", 1);
+        ContainerEff e2 = new ContainerEff((Inteface) v);
+        effetti.add(e2);
+
+        Eff_Scottatura s = new Eff_Scottatura(2, "scottatura", 3, 16, 50);
+        ContainerEff e3 = new ContainerEff((Inteface) s);
+        effetti.add(e3);
+
+        Eff_Sonno sonno = new Eff_Sonno(3, "sonno", 0);
+        ContainerEff e4 = new ContainerEff((Inteface) sonno);
+        effetti.add(e4);
+
+        Eff_Confusione confusione = new Eff_Confusione(4, "confusione", 2);
+        ContainerEff e5 = new ContainerEff((Inteface) confusione);
+
+        effetti.add(e5);
+
+        return effetti;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

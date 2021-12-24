@@ -1,37 +1,37 @@
-1;scintilla;13;6;nulla;
-2;Cannonflash;9;100;nulla;
-3;Sprizzalampo;13;90;nulla;
-4;Tuononda;13;0;nulla; --> PARALIZZA
-5;Dragospiro;16;6;nulla;
-6;Cozzata zen;14;12;nulla;
-7;Dragartigli;16;50;nulla;(drago)
-8;Schermoluce;14;0;nulla;(psico) --> -40% DANNI(idea: alzare difesa)
-9;Oscurotuffo;8;120;nulla;(spettro)
-10;Ombrartigli;8;70;nulla;(spettro)
-11;Fuocofatuo;10;0;nulla;(fuoco) 5 a turno --> SCOTTA
-12;tuonoshock;13;40;nulla;(elettro)
-13;Tuonopugno;13;75;nulla;(elettro)
-14;Fulmine;13;110;nulla;(elettro)
-15;Fulmisguardo;1;0;nulla;(normale) --> -30% DIFESA  
-16;Pistolacqua;11;40;nulla;(acqua)
-17;Geloscheggia;15;40;nulla;(ghiaccio)
-18;Idropompa;11;110;nulla;(acqua)
-19;Canto;1;0;nulla;(normale) --> ADDORMENTA
-20;Lanciafiamme;10;90;nulla;(fuoco) 
-21;Robodenti;10;65;nulla;(fuoco)
-22;Eterelama;3;75;nulla;(volante)
-23;Dragodanza;16;0;nulla;(drago) +20% ATTACCO
-24;IdroPulsar;11;60;nulla;(acqua)
-25;Mulinello;11;35;nulla;(acqua)
-26;Amnesia;14;0;nulla;(psico) DIFESA +40%
-27;Velenodenti;4;50;nulla;(veleno)
-28;Velenoshock;4;65;nulla;(veleno)
-29;Aerasoio;3;60;nulla;(volante)
-30;Stridio;1;0;nulla;(normale) --> -40% DIFESA
-31;Energipalla;12;90;nulla;(erba)
-32;Fendifoglia;12;90;nulla;(erba)
-33;Verdebufera;12;130;nulla;(erba)
-34;Campoerboso;12;-20;nulla;(erba)--> CURA TUTTI I POKEMON DI 20
-35;Pisichico;14;90;nulla;(psico)
-36;Nebbioscoppio;18;100;nulla;(folletto)
-37;Vastemergia;14;80;nulla;(psico)
+1;scintilla;13;6;-1;
+2;Cannonflash;9;100;-1;
+3;Sprizzalampo;13;90;-1;
+4;Tuononda;13;0;-1; --> PARALIZZA
+5;Dragospiro;16;6;-1;
+6;Cozzata zen;14;12;-1;
+7;Dragartigli;16;50;-1;(drago)
+8;Schermoluce;14;0;-1;(psico) --> -40% DANNI(idea: alzare difesa)
+9;Oscurotuffo;8;120;-1;(spettro)
+10;Ombrartigli;8;70;-1;(spettro)
+11;Fuocofatuo;10;0;2;(fuoco) 5 a turno --> SCOTTA
+12;tuonoshock;13;40;-1;(elettro)
+13;Tuonopugno;13;75;-1;(elettro)
+14;Fulmine;13;110;-1;(elettro)
+15;Fulmisguardo;1;0;-1;(normale) --> -30% DIFESA  
+16;Pistolacqua;11;40;-1;(acqua)
+17;Geloscheggia;15;40;-1;(ghiaccio)
+18;Idropompa;11;110;-1;(acqua)
+19;Canto;1;0;3;(normale)
+20;Lanciafiamme;10;90;-1;(fuoco) 
+21;Robodenti;10;65;-1;(fuoco)
+22;Eterelama;3;75;-1;(volante)
+23;Dragodanza;16;0;-1;(drago) +20% ATTACCO
+24;IdroPulsar;11;60;-1;(acqua)
+25;Mulinello;11;35;-1;(acqua)
+26;Amnesia;14;0;-1;(psico) DIFESA +40%
+27;Velenodenti;4;50;-1;(veleno)
+28;Velenoshock;4;65;-1;(veleno)
+29;Aerasoio;3;60;-1;(volante)
+30;Stridio;1;0;-1;(normale) --> -40% DIFESA
+31;Energipalla;12;90;-1;(erba)
+32;Fendifoglia;12;90;-1;(erba)
+33;Verdebufera;12;130;-1;(erba)
+34;Campoerboso;12;-20;-1;(erba)--> CURA TUTTI I POKEMON DI 20
+35;Pisichico;14;90;-1;(psico)
+36;Nebbioscoppio;18;100;-1;(folletto)
+37;Vastemergia;14;80;-1;(psico)

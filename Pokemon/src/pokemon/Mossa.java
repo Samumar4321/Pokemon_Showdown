@@ -15,7 +15,7 @@ public class Mossa {
     private Tipo tipo;
     private String nome;
     private int dannoBase;
-    private Object effetto;
+    private ContainerEff effetto;
 
     public void setId(int id) {
         this.id = id;
@@ -49,11 +49,11 @@ public class Mossa {
         this.dannoBase = dannoBase;
     }
 
-    public Object getEffetto() {
+    public ContainerEff getEffetto() {
         return effetto;
     }
 
-    public void setEffetto(Object effetto) {
+    public void setEffetto(ContainerEff effetto) {
         this.effetto = effetto;
     }
 
@@ -65,7 +65,7 @@ public class Mossa {
         this.effetto = null;
     }
 
-    public Mossa(int id, String nome, Tipo tipo, int dannoBase, Object effetto) {
+    public Mossa(int id, String nome, Tipo tipo, int dannoBase, ContainerEff effetto) {
         this.id = id;
         this.tipo = tipo;
         this.nome = nome;
@@ -79,7 +79,12 @@ public class Mossa {
         str = id + "\t" + nome + ":\n";
         str += "\t\tTipo: " + tipo.getNome() + "\n";
         str += "\t\tDanno: " + dannoBase + "\n";
-        str += "\t\tEffetto: " + "\n";
+        if (effetto != null) {
+            str += "\t\tEffetto: " + effetto.toString() + "\n";
+        } else {
+            str += "\t\tEffetto: " + "\n";
+        }
+
         return str;
     }
 

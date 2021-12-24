@@ -18,10 +18,14 @@ public class Condivisa {
     List<Consumabile> consumabili;
     List<Pokemon> pokemons;
     List<Mossa> mosse;
-    List<Object> effetti;
+    List<ContainerEff> effetti;
     List<Tipo> tipi;
-    private static Condivisa instance;
+    private static Condivisa instance = null;
     Frame frame;
+    String nomeDestinatario;
+    boolean connected;
+    String nome;
+    private boolean mittente;
 
     private Condivisa() {
         consumabili = new ArrayList();
@@ -42,14 +46,20 @@ public class Condivisa {
         }
         return instance;
     }
-    public Pokemon SearchPokemonByName(String name)
-    {
+
+    public Pokemon SearchPokemonByName(String name) {
         for (int i = 0; i < pokemons.size(); i++) {
-            if(pokemons.get(i).getNome() == name)
-            {
+            if (pokemons.get(i).getNome() == name) {
                 return pokemons.get(i);
             }
         }
         return null;
     }
+
+    public boolean isMittente() {
+        boolean temp = mittente;
+        mittente = false;
+        return temp;
+    }
+
 }

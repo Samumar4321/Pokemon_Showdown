@@ -28,7 +28,7 @@ public class Messaggio_Apertura extends Messaggio {
 
     @Override
     public void execute() {
-        /*c.connected = true;
+        c.connected = true;
         System.out.println("DENTRO MESS_APER_EXEC");
         String[] csv = new String(packet.getData()).split(";");
         c.nomeDestinatario = csv[1];
@@ -40,7 +40,7 @@ public class Messaggio_Apertura extends Messaggio {
             Logger.getLogger(Messaggio_Apertura.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("USCITO MESS_APER_EXEC\n");
-*/
+
     }
 
 }
