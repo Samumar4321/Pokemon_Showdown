@@ -31,25 +31,7 @@ public class NewMain {
             System.out.println("Lita numero:" + i + "--" + effetti.get(i));
         }
          */
-        Condivisa c = Condivisa.getInstance();
-        GestoreFIle gf = new GestoreFIle(c);
-        List<Tipo> tp = gf.loadTipi("tipi.txt");
-        System.out.println("-------------------TIPI-------------------");
-        for (Tipo t : tp) {
-            System.out.println(t.toString() + "\n\n");
-        }
-        c.tipi = tp;
-        List<Mossa> ms = gf.loadMosse("mosse.txt");
-        System.out.println("\n\n\n");
-        System.out.println("-------------------MOSSE-------------------");
-        for (Mossa m : ms) {
-            System.out.println(m.toString() + "\n\n");
-        }
-        c.mosse = ms;
-        List<Pokemon> pks = gf.loadPokemon("pokemon.txt");
-        for (Pokemon p : pks) {
-            System.out.println(p.toString() + "\n\n");
-        }
+       
         
 
     }

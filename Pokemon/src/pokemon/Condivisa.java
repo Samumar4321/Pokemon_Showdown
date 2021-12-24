@@ -5,6 +5,7 @@
  */
 package pokemon;
 
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Condivisa {
     List<Object> effetti;
     List<Tipo> tipi;
     private static Condivisa instance;
+    Frame frame;
 
     private Condivisa() {
         consumabili = new ArrayList();
@@ -27,6 +29,7 @@ public class Condivisa {
         mosse = new ArrayList();
         effetti = new ArrayList();
         tipi = new ArrayList<Tipo>();
+        frame = new Frame();
     }
 
     public static Condivisa getInstance() {
@@ -38,5 +41,15 @@ public class Condivisa {
             }
         }
         return instance;
+    }
+    public Pokemon SearchPokemonByName(String name)
+    {
+        for (int i = 0; i < pokemons.size(); i++) {
+            if(pokemons.get(i).getNome() == name)
+            {
+                return pokemons.get(i);
+            }
+        }
+        return null;
     }
 }
