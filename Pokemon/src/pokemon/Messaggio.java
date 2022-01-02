@@ -30,7 +30,7 @@ public class Messaggio {
     }
 
     public void execute() {
-
+        
     }
 
     public void send(String str) throws IOException {

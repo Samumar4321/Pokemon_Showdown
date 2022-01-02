@@ -22,6 +22,8 @@ public class Condivisa {
     List<Tipo> tipi;
     List<Pokemon> squadra;
     int pokemonAttuale;
+    Pokemon pokemonAvversario;
+    int pokRimanentiAvv;
     private static Condivisa instance = null;
     Frame frame;
     String nomeDestinatario;
