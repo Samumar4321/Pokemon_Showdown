@@ -15,20 +15,26 @@ import java.util.List;
  */
 public class Condivisa {
 
+    //database generale
     List<Consumabile> consumabili;
     List<Pokemon> pokemons;
     List<Mossa> mosse;
     List<ContainerEff> effetti;
     List<Tipo> tipi;
+
+    //giocatore
     List<Pokemon> squadra;
     int pokemonAttuale;
+    String nome;
+
+    //avversario
     Pokemon pokemonAvversario;
     int pokRimanentiAvv;
+    String nomeDestinatario;
+
     private static Condivisa instance = null;
     Frame frame;
-    String nomeDestinatario;
     boolean connected;
-    String nome;
     private boolean mittente;
 
     private Condivisa() {
