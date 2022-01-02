@@ -83,6 +83,19 @@ public class Tipo {
         this.nome = nome;
     }
 
+    public List<String> getDo_twotimedamage() {
+        return Do_twotimedamage;
+    }
+
+    public List<String> getDo_halfdamage() {
+        return Do_halfdamage;
+    }
+
+    public List<String> getDo_nodamage() {
+        return Do_nodamage;
+    }
+    
+
 }
 
 //normale;;roccia-acciaio;spettro;

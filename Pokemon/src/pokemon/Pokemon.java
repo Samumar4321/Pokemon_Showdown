@@ -8,6 +8,7 @@ package pokemon;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Pokemon {
     private List<ContainerEff> effetti;
 
     public Pokemon() {
-        effetti = new ArrayList<ContainerEff>();
+        effetti = new LinkedList<ContainerEff>();
         mosse = new ArrayList<Mossa>();
         tipi = new ArrayList<Tipo>();
         this.id = 0;
@@ -52,7 +53,7 @@ public class Pokemon {
         this.mosse = mosse;
         this.imgFront = imgFront;
         this.imgBack = imgBack;
-        this.effetti = new ArrayList<ContainerEff>();
+        this.effetti = new LinkedList<ContainerEff>();
     }
 
     @Override
@@ -78,15 +79,23 @@ public class Pokemon {
 
     }
 
-    public void eseguiEffetti() {
-        for (int i = 0; i < effetti.size();i++) {
-            //problema enorme    
+    private void eseguiEffetti() {
+        for (int i = 0; i < effetti.size();i++) {    
             ContainerEff eff = effetti.get(i);
             int j = eff.execute(this);
             if (j == -1) {
+                i--;
                 effetti.remove(eff);
             }
         }
+    }
+    public int eseguiAttaccp(int mossa)
+    {
+        Mossa m = mosse.get(mossa);
+        int danno = 0;
+        //cercare formula per calcolare danno (successivamente con relativi effetti)
+        danno = m.getDannoBase();
+        return danno;       
     }
 
     public int getVitaAttuale() {

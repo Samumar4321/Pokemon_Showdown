@@ -89,7 +89,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         // TODO add your handling code here:
         String name = jComboBox1.getSelectedItem().toString();
-        Pokemon p = c.SearchPokemonByName(name);
+        Pokemon p = c.getPokemonByName(name);
         if (p != null) {
             urlFront = p.getImgFront();
             urlBack = p.getImgBack();
@@ -136,7 +136,7 @@ public class MainFrame extends javax.swing.JFrame {
         Thread.sleep(5000);
         ThreadPaint tp = new ThreadPaint();
         tp.start();
-
+/*
         Condivisa c = Condivisa.getInstance();
         Pokemon p = c.pokemons.get(0);
         p.addEffetto(c.effetti.get(2));
@@ -148,6 +148,7 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println("ciao");
         p.eseguiEffetti();
         System.out.println("ciao");
+*/
     }
 
     String urlFront = "";

@@ -20,6 +20,8 @@ public class Condivisa {
     List<Mossa> mosse;
     List<ContainerEff> effetti;
     List<Tipo> tipi;
+    List<Pokemon> squadra;
+    int pokemonAttuale;
     private static Condivisa instance = null;
     Frame frame;
     String nomeDestinatario;
@@ -34,6 +36,8 @@ public class Condivisa {
         effetti = new ArrayList();
         tipi = new ArrayList<Tipo>();
         frame = new Frame();
+        squadra = new ArrayList<Pokemon>();
+        pokemonAttuzle = 0;
     }
 
     public static Condivisa getInstance() {
@@ -47,7 +51,30 @@ public class Condivisa {
         return instance;
     }
 
-    public Pokemon SearchPokemonByName(String name) {
+    public double efficaciaTipo(Tipo tipoMossa, List<Tipo> tipiPokemon) {
+        double multiplier = 1.0;
+        for (Tipo tipoPokemon : tipiPokemon) {
+            if (tipoMossa.getDo_halfdamage().contains(tipoPokemon.getNome())) {
+                multiplier = 0.5;
+            } else if (tipoMossa.getDo_twotimedamage().contains(tipoPokemon.getNome())) {
+                multiplier = 2.0;
+            } else if (tipoMossa.getDo_nodamage().contains(tipoPokemon.getNome())) {
+                multiplier = 0.0;
+            }
+        }
+        return multiplier;
+    }
+
+    public Mossa getMossaByName(String name) {
+        for (int i = 0; i < mosse.size(); i++) {
+            if (mosse.get(i).getNome() == name) {
+                return mosse.get(i);
+            }
+        }
+        return null;
+    }
+
+    public Pokemon getPokemonByName(String name) {
         for (int i = 0; i < pokemons.size(); i++) {
             if (pokemons.get(i).getNome() == name) {
                 return pokemons.get(i);

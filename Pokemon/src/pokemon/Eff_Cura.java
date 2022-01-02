@@ -18,7 +18,7 @@ public class Eff_Cura extends Effetto {
     }
 
     @Override
-    public void execute(Pokemon p) {
+    public int execute(Pokemon p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
