@@ -24,11 +24,21 @@ public class Messaggio_Attacco extends Messaggio {
         String[] csv = new String(packet.getData()).split(";");
         Mossa m = c.getMossaByName(csv[1]);
         if (m != null) {
+            //calcolo
+            Pokemon pAttuale = c.squadra.get(c.pokemonAttuale);
             int danno = Integer.parseInt(csv[2]);
-            danno = (int) (danno * c.efficaciaTipo(m.getTipo(), c.squadra.get(c.pokemonAttuale).getTipi()));
-
+            double molt = (c.efficaciaTipo(m.getTipo(), c.squadra.get(c.pokemonAttuale).getTipi()));
+            danno = (int) (((42) * ((pAttuale.getAttacco() * m.getDannoBase()) / pAttuale.getDifesa())) / 50 * molt); //mancano gli eventuali buff e debuff
+            pAttuale.setVitaAttuale(pAttuale.getVitaAttuale() - danno);
+            if (molt >= 0.0 && molt < 1.0) {
+                //poco efficace
+            } else if (molt >= 1.0 && molt < 2.0) {
+                //efficace
+            } else if (molt >= 2.0 && molt <= 4.0) {
+                //super efficace
+            }
         } else {
-            //cheating
+            //miss
         }
     }
 

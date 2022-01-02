@@ -37,7 +37,7 @@ public class Condivisa {
         tipi = new ArrayList<Tipo>();
         frame = new Frame();
         squadra = new ArrayList<Pokemon>();
-        pokemonAttuzle = 0;
+        pokemonAttuale = 0;
     }
 
     public static Condivisa getInstance() {
@@ -55,11 +55,11 @@ public class Condivisa {
         double multiplier = 1.0;
         for (Tipo tipoPokemon : tipiPokemon) {
             if (tipoMossa.getDo_halfdamage().contains(tipoPokemon.getNome())) {
-                multiplier = 0.5;
+                multiplier *= 0.5;
             } else if (tipoMossa.getDo_twotimedamage().contains(tipoPokemon.getNome())) {
-                multiplier = 2.0;
+                multiplier *= 2.0;
             } else if (tipoMossa.getDo_nodamage().contains(tipoPokemon.getNome())) {
-                multiplier = 0.0;
+                multiplier *= 0.0;
             }
         }
         return multiplier;
