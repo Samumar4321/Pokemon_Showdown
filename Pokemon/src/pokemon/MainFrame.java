@@ -5,6 +5,7 @@
 package pokemon;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,7 +22,7 @@ import javax.swing.ImageIcon;
  *
  * @author samum
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame{
 
     /**
      * Creates new form MainFrame
@@ -91,8 +92,8 @@ public class MainFrame extends javax.swing.JFrame {
         String name = jComboBox1.getSelectedItem().toString();
         Pokemon p = c.getPokemonByName(name);
         if (p != null) {
-            urlFront = p.getImgFront();
-            urlBack = p.getImgBack();
+            //urlFront = p.getImgFront();
+            //urlBack = p.getImgBack();
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
@@ -153,24 +154,31 @@ public class MainFrame extends javax.swing.JFrame {
 
     String urlFront = "";
     String urlBack = "";
-
+    
+    String path = "C:\\Users\\Startex\\Documents\\GitHub\\Pokemon_Showdown\\Pokemon\\src\\pokemon\\background.png";
+    
+    private Image image;
+    public Image getImage(String path){
+    
+        try{
+            File image2 = new File(path);
+            image = ImageIO.read(image2);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return image;
+        
+    }
+    
+    
     @Override
     public void paint(Graphics g) {
-//      super.paint(g);
-        Image immagine = createImage(this.getWidth(), this.getHeight());
-        Graphics gImmagine = immagine.getGraphics();
-        gImmagine.clearRect(0, 200, this.getWidth(), this.getHeight());
-//      g.clearRect(0, 200, this.getWidth(), this.getHeight());
-        if (urlFront != "") {
-            Image img = ImageFromUrl.show(urlFront);
-            gImmagine.drawImage(img, 100, 300, this);
-        }
-        if (urlBack != "") {
-            Image img = ImageFromUrl.show(urlBack);
-            gImmagine.drawImage(img, 500, 300, this);
-        }
+        //Image immagine = createImage(this.getWidth(), this.getHeight());
+        //Graphics gImmagine = immagine.getGraphics();
+        //gImmagine.clearRect(0, 200, this.getWidth(), this.getHeight());
 
-        g.drawImage(immagine, 0, 0, this);
+        if(image == null) return;
+        g.drawImage(image, 0, 0, this);
     }
 
     private void LoadGame() throws IOException {
