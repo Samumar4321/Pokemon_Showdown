@@ -240,7 +240,7 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
                 System.out.println(m.getNome());
                 System.out.println("ATTACCO INVIATO");
                 String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();               
-                int danno = (int) (((42) * ((pattuale.getAttacco() * m.getDannoBase()) / pattuale.getDifesa())) / 50 );//mancano gli eventuali buff e debuff
+                int danno = m.getDannoBase();//mancano gli eventuali buff e debuff
                 String effetto = "";
                 String str = "at;" + m.getNome() + ";" + danno + ";" + effetto + ";";
                 byte[] buffer = str.getBytes();
@@ -249,7 +249,6 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
                 packet.setAddress(ip);
                 packet.setPort(port);
                 Condivisa.getInstance().serverInvio.send(packet);
-
             } catch (SocketException ex) {
                 Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnknownHostException ex) {

@@ -188,7 +188,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     String path = "src\\pokemon\\background.png";
 
-    private Image image = getImage(path);
+    private Image image;// = getImage(path);
 
     public Image getImage(String path) {
 
