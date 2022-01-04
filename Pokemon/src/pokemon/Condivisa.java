@@ -6,6 +6,8 @@
 package pokemon;
 
 import java.awt.Frame;
+import java.net.DatagramSocket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class Condivisa {
     List<Pokemon> squadra;
     int pokemonAttuale;
     String nome;
+    boolean turno = true;
 
     //avversario
     Pokemon pokemonAvversario;
@@ -35,9 +38,11 @@ public class Condivisa {
     private static Condivisa instance = null;
     Frame frame;
     boolean connected;
-    private boolean mittente;
+    boolean mittente;
+    DatagramSocket serverRicezione;
+    DatagramSocket serverInvio;
 
-    private Condivisa() {
+    private Condivisa() throws SocketException {
         consumabili = new ArrayList();
         pokemons = new ArrayList();
         mosse = new ArrayList();
@@ -46,9 +51,11 @@ public class Condivisa {
         frame = new Frame();
         squadra = new ArrayList<Pokemon>();
         pokemonAttuale = 0;
+        this.serverRicezione = new DatagramSocket(12346);
+        serverInvio = new DatagramSocket();
     }
 
-    public static Condivisa getInstance() {
+    public static Condivisa getInstance() throws SocketException {
         if (instance == null) {
             synchronized (Condivisa.class) {
                 if (instance == null) {

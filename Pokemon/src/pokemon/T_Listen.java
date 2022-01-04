@@ -28,23 +28,23 @@ public class T_Listen extends Thread {
 
     @Override
     public void run() {
-//        while (true) {
-//            try {
-//                byte[] buffer = new byte[1500];
-//                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-//                c.serverRicezione.receive(packet);
-//                gPacket.execute(packet);
-//                //c.gPacket.add(packet);
-//                System.out.println("p ricevuto\n");
-//            } catch (IOException ex) {
-//                Logger.getLogger(T_Listen.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            try {
-//                Thread.sleep(150);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(T_Listen.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+        while (true) {
+            try {
+                byte[] buffer = new byte[1500];
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                c.serverRicezione.receive(packet);
+                gPacket.execute(packet);
+                //c.gPacket.add(packet);
+                System.out.println("p ricevuto\n");
+            } catch (IOException ex) {
+                Logger.getLogger(T_Listen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                Thread.sleep(150);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(T_Listen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
 }

@@ -34,11 +34,11 @@ public class Messaggio {
     }
 
     public void send(String str) throws IOException {
-//        byte[] buffer = str.getBytes();
-//        DatagramPacket pack = new DatagramPacket(buffer, buffer.length);
-//        pack.setAddress(lastIP);
-//        pack.setPort(lastPort);
-//        System.out.println("Dentro MESSAGGIO SEND\n");
-//        c.serverInvio.send(pack);
+        byte[] buffer = str.getBytes();
+        DatagramPacket pack = new DatagramPacket(buffer, buffer.length);
+        pack.setAddress(lastIP);
+        pack.setPort(lastPort);
+        System.out.println("Dentro MESSAGGIO SEND\n");
+        c.serverInvio.send(pack);
     }
 }

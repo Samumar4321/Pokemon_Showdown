@@ -10,7 +10,9 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.SocketException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,8 +23,10 @@ import javax.swing.ImageIcon;
 /**
  *
  * @author samum
+ * 
+ * //VLAD IGNORA IL MIO BOTTONE, AL MASSIMO SPOSTALO
  */
-public class MainFrame extends javax.swing.JFrame{
+public class MainFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form MainFrame
@@ -51,19 +55,26 @@ public class MainFrame extends javax.swing.JFrame{
 
         label1 = new java.awt.Label();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         label1.setText("label1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("POKEMON_SHOWDOWN");
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setForeground(new java.awt.Color(153, 0, 0));
         jComboBox1.setMaximumRowCount(5);
         jComboBox1.setDoubleBuffered(true);
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -74,21 +85,26 @@ public class MainFrame extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(653, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 572, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(553, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //Ignora il bottone Vlad o al massimo spostalo
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         // TODO add your handling code here:
+
         String name = jComboBox1.getSelectedItem().toString();
         Pokemon p = c.getPokemonByName(name);
         if (p != null) {
@@ -96,6 +112,19 @@ public class MainFrame extends javax.swing.JFrame{
             //urlBack = p.getImgBack();
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            TestConnessioneFrame test = new TestConnessioneFrame();
+            test.show();
+            this.dispose();
+        } catch (SocketException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,9 +164,11 @@ public class MainFrame extends javax.swing.JFrame{
             }
         });
         Thread.sleep(5000);
-        ThreadPaint tp = new ThreadPaint();
-        tp.start();
-/*
+        //ThreadPaint tp = new ThreadPaint();
+        //tp.start();
+
+
+        /*
         Condivisa c = Condivisa.getInstance();
         Pokemon p = c.pokemons.get(0);
         p.addEffetto(c.effetti.get(2));
@@ -149,35 +180,37 @@ public class MainFrame extends javax.swing.JFrame{
         System.out.println("ciao");
         p.eseguiEffetti();
         System.out.println("ciao");
-*/
+         */
     }
 
     String urlFront = "";
     String urlBack = "";
-    
-    String path = "C:\\Users\\Startex\\Documents\\GitHub\\Pokemon_Showdown\\Pokemon\\src\\pokemon\\background.png";
-    
-    private Image image;
-    public Image getImage(String path){
-    
-        try{
+
+    String path = "src\\pokemon\\background.png";
+
+    private Image image = getImage(path);
+
+    public Image getImage(String path) {
+
+        try {
             File image2 = new File(path);
             image = ImageIO.read(image2);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return image;
-        
+
     }
-    
-    
+
     @Override
     public void paint(Graphics g) {
         //Image immagine = createImage(this.getWidth(), this.getHeight());
         //Graphics gImmagine = immagine.getGraphics();
         //gImmagine.clearRect(0, 200, this.getWidth(), this.getHeight());
 
-        if(image == null) return;
+        if (image == null) {
+            return;
+        }
         g.drawImage(image, 0, 0, this);
     }
 
@@ -233,6 +266,7 @@ public class MainFrame extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables

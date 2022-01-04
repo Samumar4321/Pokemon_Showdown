@@ -32,13 +32,23 @@ public class Messaggio_Apertura extends Messaggio {
         System.out.println("DENTRO MESS_APER_EXEC");
         String[] csv = new String(packet.getData()).split(";");
         c.nomeDestinatario = csv[1];
-        JOptionPane.showOptionDialog(c.frame, "Desideri accettare la connessione con: \n" + csv[1], null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[1]);
-        String str = ("y;" + c.nome + ";");
-        try {
-            send(str);
-        } catch (IOException ex) {
-            Logger.getLogger(Messaggio_Apertura.class.getName()).log(Level.SEVERE, null, ex);
+        int s = JOptionPane.showOptionDialog(c.frame, "Desideri accettare la connessione con: \n" + csv[1], null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[1]);
+        if (s == 0) {
+            String str = ("y;" + c.nome + ";");
+            try {
+                send(str);
+            } catch (IOException ex) {
+                Logger.getLogger(Messaggio_Apertura.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            String str = ("n;" + c.nome + ";");
+            try {
+                send(str);
+            } catch (IOException ex) {
+                Logger.getLogger(Messaggio_Apertura.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
         System.out.println("USCITO MESS_APER_EXEC\n");
 
     }
