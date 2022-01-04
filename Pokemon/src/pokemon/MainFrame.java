@@ -19,6 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 /**
  *
@@ -158,6 +160,10 @@ public class MainFrame extends javax.swing.JFrame {
             public void run() {
                 try {
                     new MainFrame().setVisible(true);
+                    
+                    ImageFrame frame = new ImageFrame();
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -201,19 +207,54 @@ public class MainFrame extends javax.swing.JFrame {
         return image;
 
     }
+<<<<<<< Updated upstream
 
     @Override
     public void paint(Graphics g) {
+=======
+    
+    
+    //@Override
+    //public void paint(Graphics g) {
+>>>>>>> Stashed changes
         //Image immagine = createImage(this.getWidth(), this.getHeight());
         //Graphics gImmagine = immagine.getGraphics();
         //gImmagine.clearRect(0, 200, this.getWidth(), this.getHeight());
 
+<<<<<<< Updated upstream
         if (image == null) {
             return;
         }
         g.drawImage(image, 0, 0, this);
-    }
+=======
+        //if(image == null) return;
+        //g.drawImage(image, 0, 0, this);
+    //}
+    
+class ImageFrame extends JFrame{
+    public ImageFrame(){
+        setTitle("ImageTest");
 
+        ImageComponent component = new ImageComponent();
+        add(component);
+        getContentPane().validate();
+        getContentPane().repaint();
+}
+
+    
+class ImageComponent extends JComponent {
+        public ImageComponent() {
+            getImage(path);
+        }
+}
+
+    public void paintComponent (Graphics g){
+        if(image == null) return;
+        g.drawImage(image, 50, 50, this);
+>>>>>>> Stashed changes
+    }
+    
+    
     private void LoadGame() throws IOException {
         Condivisa c = Condivisa.getInstance();
         c.effetti = loadEffetti();
