@@ -36,6 +36,10 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() throws IOException {
         initComponents();
         c = Condivisa.getInstance();
+        //GUI panel = new GUI();
+        //panel.setVisible(true);
+        TESTFRAME tf = new TESTFRAME();
+        tf.setVisible(true);
         c.frame = this;
         LoadGame();
         for (int i = 0; i < c.pokemons.size(); i++) {
@@ -218,6 +222,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -250,20 +255,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     String urlFront = "";
     String urlBack = "";
-
-    private Image image;// = getImage(path);
-
-    public Image getImage(String path) {
-
-        try {
-            File image2 = new File(path);
-            image = ImageIO.read(image2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-
-    }
 
     
     
