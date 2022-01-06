@@ -19,6 +19,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -52,6 +53,7 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.gray);
         jScrollPane1.getViewport().setBackground(Color.gray);
         c = Condivisa.getInstance();
+        setSquadra();
         this.setTitle("CHAT_VIRTUALE");
         c.frame = this;
         String s = (String) JOptionPane.showInputDialog(
@@ -74,6 +76,14 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
         }
     }
 
+    private void setSquadra() throws SocketException {
+        c = Condivisa.getInstance();
+        for (int j = 0; j < 6; j++) {
+            Pokemon p = new Pokemon(c.pokemons.get(0));
+            c.squadra.add(p);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,12 +93,21 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuBar1 = new java.awt.MenuBar();
+        menu1 = new java.awt.Menu();
+        menu2 = new java.awt.Menu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+
+        menu1.setLabel("File");
+        menuBar1.add(menu1);
+
+        menu2.setLabel("Edit");
+        menuBar1.add(menu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -194,6 +213,7 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
                 packet.setAddress(ip);
                 packet.setPort(port);
                 Condivisa.getInstance().serverInvio.send(packet);
+                Condivisa.getInstance().turno = true;
             } catch (SocketException ex) {
                 Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnknownHostException ex) {
@@ -239,7 +259,7 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
                 //invio attacco
                 System.out.println(m.getNome());
                 System.out.println("ATTACCO INVIATO");
-                String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();               
+                String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();
                 int danno = m.getDannoBase();//mancano gli eventuali buff e debuff
                 String effetto = "";
                 String str = "at;" + m.getNome() + ";" + danno + ";" + effetto + ";";
@@ -402,5 +422,8 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private java.awt.Menu menu1;
+    private java.awt.Menu menu2;
+    private java.awt.MenuBar menuBar1;
     // End of variables declaration//GEN-END:variables
 }

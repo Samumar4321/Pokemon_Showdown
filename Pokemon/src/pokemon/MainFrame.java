@@ -23,7 +23,7 @@ import javax.swing.ImageIcon;
 /**
  *
  * @author samum
- * 
+ *
  * //VLAD IGNORA IL MIO BOTTONE, AL MASSIMO SPOSTALO
  */
 public class MainFrame extends javax.swing.JFrame {
@@ -36,13 +36,20 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() throws IOException {
         initComponents();
         c = Condivisa.getInstance();
+        LoadGame();
         //GUI panel = new GUI();
         //panel.setVisible(true);
-        TESTFRAME tf = new TESTFRAME();
-        tf.setVisible(true);
+        //TESTFRAME tf = new TESTFRAME();
+        //tf.setVisible(true);
         c.frame = this;
-        LoadGame();
+        showTestConnessione();
 
+    }
+
+    private void showTestConnessione() throws SocketException, UnknownHostException {
+        TestConnessioneFrame test = new TestConnessioneFrame();
+        test.show();
+        this.dispose();
     }
 
     /**
@@ -219,7 +226,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -253,8 +259,6 @@ public class MainFrame extends javax.swing.JFrame {
     String urlFront = "";
     String urlBack = "";
 
-    
-    
     @Override
     public void paint(Graphics g) {
         //Image immagine = createImage(this.getWidth(), this.getHeight());
@@ -262,11 +266,9 @@ public class MainFrame extends javax.swing.JFrame {
         //gImmagine.clearRect(0, 200, this.getWidth(), this.getHeight());
 
         //if (image == null) {
-           // return;
+        // return;
         //}
         //g.drawImage(image, 0, 0, this);
-        
-        
     }
 
     private void LoadGame() throws IOException {

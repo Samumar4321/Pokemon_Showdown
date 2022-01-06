@@ -28,7 +28,7 @@ public class Condivisa {
     List<Pokemon> squadra;
     int pokemonAttuale;
     String nome;
-    boolean turno = true;
+    boolean turno = false;
 
     //avversario
     Pokemon pokemonAvversario;
@@ -82,7 +82,7 @@ public class Condivisa {
 
     public Mossa getMossaByName(String name) {
         for (int i = 0; i < mosse.size(); i++) {
-            if (mosse.get(i).getNome() == name) {
+            if (mosse.get(i).getNome().equals(name)) {
                 return mosse.get(i);
             }
         }
@@ -91,7 +91,7 @@ public class Condivisa {
 
     public Pokemon getPokemonByName(String name) {
         for (int i = 0; i < pokemons.size(); i++) {
-            if (pokemons.get(i).getNome() == name) {
+            if (pokemons.get(i).getNome().equals(name)) {
                 return pokemons.get(i);
             }
         }

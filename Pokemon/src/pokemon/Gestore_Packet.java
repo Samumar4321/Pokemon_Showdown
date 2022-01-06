@@ -68,6 +68,20 @@ public class Gestore_Packet {
                     connectedIP = null;
                     break;
                 }
+                case "p": {
+                    System.out.println("CAMBIO POKLEMON");
+                    Messaggio_Pokemon mp = new Messaggio_Pokemon(p);
+                    mp.execute();
+                    c.turno = true;
+                    break;
+                }
+                case "at": {
+                    System.out.println("ATTACCO");
+                    Messaggio_Attacco ma = new Messaggio_Attacco(p);
+                    ma.execute();
+                    c.turno = true;
+                    break;
+                }
 
             }
         }

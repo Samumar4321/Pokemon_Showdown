@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -258,21 +259,19 @@ public class TESTFRAME extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+  private void showTestConnessione() throws SocketException, UnknownHostException {
+        TestConnessioneFrame test = new TestConnessioneFrame();
+        test.show();
+        this.dispose();
+    }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         //LOTTA
-        
-       
-        if(!jTextPane1.equals("") && model.getSize() == 6){
-           
+
+        if (!jTextPane1.equals("") && model.getSize() == 6) {
+
             //NEW WINDOW
-            
-            
-            
-            
-            
-            
         }
 
     }//GEN-LAST:event_jButton5ActionPerformed

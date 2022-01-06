@@ -42,6 +42,26 @@ public class Pokemon {
         this.imgBack = "";
     }
 
+    public Pokemon(Pokemon p) {
+        effetti = new LinkedList<ContainerEff>();
+        mosse = new ArrayList<Mossa>();
+        for (int i = 0; i < p.getMosse().size(); i++) {
+            mosse.add(p.getMosse().get(i));
+        }
+        tipi = new ArrayList<Tipo>();
+        for (int i = 0; i < p.getTipi().size(); i++) {
+            tipi.add(p.getTipi().get(i));
+        }
+        this.id = p.getId();
+        this.nome = p.getNome();
+        this.vitaMax = p.getVitaMax();
+        this.vitaAttuale = p.getVitaAttuale();
+        this.attacco = p.getAttacco();
+        this.difesa = p.getDifesa();
+        this.imgFront = p.getImgFront();
+        this.imgBack = p.getImgBack();
+    }
+
     public Pokemon(int id, String nome, int vita, int attacco, int difesa, List<Tipo> tipi, List<Mossa> mosse, String imgFront, String imgBack) {
         this.id = id;
         this.nome = nome;
@@ -80,7 +100,7 @@ public class Pokemon {
     }
 
     private void eseguiEffetti() {
-        for (int i = 0; i < effetti.size();i++) {    
+        for (int i = 0; i < effetti.size(); i++) {
             ContainerEff eff = effetti.get(i);
             int j = eff.execute(this);
             if (j == -1) {
@@ -89,13 +109,13 @@ public class Pokemon {
             }
         }
     }
-    public int eseguiAttaccp(int mossa)
-    {
+
+    public int eseguiAttaccp(int mossa) {
         Mossa m = mosse.get(mossa);
         int danno = 0;
         //cercare formula per calcolare danno (successivamente con relativi effetti)
         danno = m.getDannoBase();
-        return danno;       
+        return danno;
     }
 
     public int getVitaAttuale() {

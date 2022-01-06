@@ -1,6 +1,6 @@
-pozione;cura 20 ps;
-superpozione;cura 60 ps;
-ricaricatotale;cura tutti i ps e effetti;
-revitalizzante;rianima un pokemon a metà vita;
-proteina;10 attacco;
-ferro;10 difesa;
+pozione;cura 20 ps; 5
+superpozione;cura 60 ps; 3
+ricaricatotale;cura tutti i ps e effetti; 1
+revitalizzante;rianima un pokemon a metà vita; 1
+proteina;10 attacco; 5
+ferro;10 difesa; 5
