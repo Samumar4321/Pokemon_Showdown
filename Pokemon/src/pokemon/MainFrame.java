@@ -42,9 +42,6 @@ public class MainFrame extends javax.swing.JFrame {
         tf.setVisible(true);
         c.frame = this;
         LoadGame();
-        for (int i = 0; i < c.pokemons.size(); i++) {
-            jComboBox1.addItem(c.pokemons.get(i).getNome());
-        }
 
     }
 
