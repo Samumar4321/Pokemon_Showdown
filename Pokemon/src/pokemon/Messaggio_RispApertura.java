@@ -29,6 +29,7 @@ public class Messaggio_RispApertura extends Messaggio {
         String[] csv = new String(packet.getData()).split(";");
         String risp = csv[0];
         if (risp.equals("y") && c.isMittente()) {
+            c.turno = true;
             c.connected = true;
             c.nomeDestinatario = csv[1];
             String str = "y;";
@@ -37,10 +38,11 @@ public class Messaggio_RispApertura extends Messaggio {
             } catch (IOException ex) {
                 Logger.getLogger(Messaggio_RispApertura.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (risp.equals("y")) {         
+        } else if (risp.equals("y")) {
             c.connected = true;
-        } else if (risp.equals("n")) {
-
+            c.turno = false;
+        } else if (risp.equals("n")) {           
+            c.turno = false;
         }
         System.out.println("USCITO MESS_RISP_APER_EXEC\n");
     }

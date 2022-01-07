@@ -56,6 +56,7 @@ public class TESTFRAME extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(img);
         jLabel3.setText(nomeP);
         jLabel4.setIcon(icon);
+        showTestConnessione();
         //img = getImage("src\\img\\background.png");
         //this.setContentPane(new backgroundPanel(img));
     }

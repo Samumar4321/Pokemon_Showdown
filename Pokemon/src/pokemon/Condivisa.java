@@ -29,6 +29,7 @@ public class Condivisa {
     int pokemonAttuale;
     String nome;
     boolean turno = false;
+    int numePokemon;
 
     //avversario
     Pokemon pokemonAvversario;

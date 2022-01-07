@@ -42,6 +42,7 @@ public class Gestore_Packet {
         byte[] buffer = p.getData();
         String action = new String(buffer).split(";")[0];
         System.out.println("ACTION: " + action);
+        String[] csv = new String(p.getData()).split(";");
         if (action.equals("a")) {
             connectedIP = p.getAddress();
             Messaggio_Apertura ma = new Messaggio_Apertura(p);
@@ -79,6 +80,12 @@ public class Gestore_Packet {
                     System.out.println("ATTACCO");
                     Messaggio_Attacco ma = new Messaggio_Attacco(p);
                     ma.execute();
+                    c.turno = true;
+                    break;
+                }
+                case "og": {
+                    Messaggio_Oggetto mo = new Messaggio_Oggetto(p);
+                    mo.execute();
                     c.turno = true;
                     break;
                 }

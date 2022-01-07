@@ -12,20 +12,16 @@ import java.net.UnknownHostException;
  *
  * @author samum
  */
-public class Messaggio_Pokemon extends Messaggio {
+public class Messaggio_Oggetto extends Messaggio{
 
-    public Messaggio_Pokemon(DatagramPacket p) throws SocketException, UnknownHostException {
+    public Messaggio_Oggetto(DatagramPacket p) throws SocketException, UnknownHostException {
         super(p);
     }
 
     @Override
     public void execute() {
         String[] csv = new String(packet.getData()).split(";");
-        Pokemon p = new Pokemon(c.getPokemonByName(csv[1]));
-        p.setVitaAttuale(Integer.parseInt(csv[2]));
-        c.pokRimanentiAvv = Integer.parseInt(csv[3]);
-        c.pokemonAvversario = p;
-        c.turno = true;
+        //og + nome oggetto
     }
-
+    
 }

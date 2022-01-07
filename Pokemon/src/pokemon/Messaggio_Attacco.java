@@ -4,9 +4,12 @@
  */
 package pokemon;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,25 +23,36 @@ public class Messaggio_Attacco extends Messaggio {
 
     @Override
     public void execute() {
-        //at nomemossa danno effetto
-        String[] csv = new String(packet.getData()).split(";");
-        Mossa m = c.getMossaByName(csv[1]);
-        if (m != null) {
-            //calcolo
+        try {
             Pokemon pAttuale = c.squadra.get(c.pokemonAttuale);
-            int danno = Integer.parseInt(csv[2]);
-            double molt = (c.efficaciaTipo(m.getTipo(), c.squadra.get(c.pokemonAttuale).getTipi()));
-            danno = (int) ((((42) * ((pAttuale.getAttacco() *danno) / pAttuale.getDifesa())) / 50) * molt); //mancano gli eventuali buff e debuff
-            pAttuale.setVitaAttuale(pAttuale.getVitaAttuale() - danno);
-            if (molt >= 0.0 && molt < 1.0) {
-                //poco efficace
-            } else if (molt >= 1.0 && molt < 2.0) {
-                //efficace
-            } else if (molt >= 2.0 && molt <= 4.0) {
-                //super efficace
+            //at nomemossa danno effetto
+            String[] csv = new String(packet.getData()).split(";");
+            Mossa m = c.getMossaByName(csv[1]);
+            if (m != null) {
+                //calcolo
+                int danno = Integer.parseInt(csv[2]);
+                double molt = (c.efficaciaTipo(m.getTipo(), c.squadra.get(c.pokemonAttuale).getTipi()));
+                danno = (int) ((((42) * ((c.pokemonAvversario.getAttacco() * danno) / pAttuale.getDifesa())) / 50) * molt); //mancano gli eventuali buff e debuff
+                pAttuale.setVitaAttuale(pAttuale.getVitaAttuale() - danno);
+                if (pAttuale.getVitaAttuale() <= 0) {
+                    c.numePokemon--;
+                }
+//            if (molt >= 0.0 && molt < 1.0) {
+//                //poco efficace
+//            } else if (molt >= 1.0 && molt < 2.0) {
+//                //efficace
+//            } else if (molt >= 2.0 && molt <= 4.0) {
+//                //super efficace
+//            }
+            } else {
+                //miss
             }
-        } else {
-            //miss
+            String str = "";
+            str = "p;" + pAttuale.getNome() + ";" + pAttuale.getVitaAttuale() + ";" + c.numePokemon + ";" + pAttuale.getImgFront() + ";";
+            send(str);
+            c.turno = true;
+        } catch (IOException ex) {
+            Logger.getLogger(Messaggio_Attacco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
