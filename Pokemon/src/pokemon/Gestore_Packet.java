@@ -50,6 +50,7 @@ public class Gestore_Packet {
         } else if (p.getAddress().equals(connectedIP)) {
             switch (action) {
                 case "c": {
+                    //vittoria tua
                     Messaggio_Chiusura mc = new Messaggio_Chiusura(p);
                     mc.execute();
                     connectedIP = null;

@@ -16,6 +16,7 @@ public class Eff_Congelamento extends Effetto{
 
     @Override
     public int execute(Pokemon p) {
+        return -1;
     }
     
 }

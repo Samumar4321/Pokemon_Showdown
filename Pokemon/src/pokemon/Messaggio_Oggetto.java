@@ -7,12 +7,14 @@ package pokemon;
 import java.net.DatagramPacket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author samum
  */
-public class Messaggio_Oggetto extends Messaggio{
+public class Messaggio_Oggetto extends Messaggio {
 
     public Messaggio_Oggetto(DatagramPacket p) throws SocketException, UnknownHostException {
         super(p);
@@ -20,8 +22,17 @@ public class Messaggio_Oggetto extends Messaggio{
 
     @Override
     public void execute() {
-        String[] csv = new String(packet.getData()).split(";");
-        //og + nome oggetto
+        try {
+            String[] csv = new String(packet.getData()).split(";");
+            //og + nome oggetto
+            String nome = csv[0];
+            Consumabile ogg = c.getOggettoByName(nome);
+            if (ogg != null) {
+                ogg.execute();
+            }
+        } catch (SocketException ex) {
+            Logger.getLogger(Messaggio_Oggetto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
 }

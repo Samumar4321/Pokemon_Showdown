@@ -20,8 +20,7 @@ public class Eff_Veleno extends Effetto {
 
     @Override
     public int execute(Pokemon p) {
-
+        return -1;
     }
-
 
 }

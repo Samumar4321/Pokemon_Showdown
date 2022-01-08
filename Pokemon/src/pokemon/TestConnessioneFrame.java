@@ -202,81 +202,23 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
 
     private void Connesione() {
 
-        if (!c.connected) {
-            String ipname = jTextField1.getText();
-            if (!ipname.equals("")) {
-                try {
-                    System.out.println("P inviato\n");
-                    Condivisa c = Condivisa.getInstance();
-                    c.mittente = true;
-                    // TODO add your handling code here:               
-                    String str = "a;" + c.nome + ";";
-                    byte[] buffer = str.getBytes();
-                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-                    InetAddress ip = InetAddress.getByName(ipname);
-                    Gestore_Packet gp = Gestore_Packet.GetInstance();
-                    gp.connectedIP = ip;
-                    packet.setAddress(ip);
-                    packet.setPort(port);
-                    Condivisa.getInstance().serverInvio.send(packet);
-                    Condivisa.getInstance().turno = true;
-                } catch (SocketException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (UnknownHostException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                String[] opt = {"OK", "ANNULLA"};
-                int choice = JOptionPane.showOptionDialog(this, "Connessione...", null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[1]);
-
-                if (choice == 1) {
-                    try {
-                        Condivisa c = Condivisa.getInstance();
-                        Gestore_Packet gp = Gestore_Packet.GetInstance();
-                        c.mittente = false;
-                        // TODO add your handling code here:               
-                        String str = "n;" + c.nome + ";";
-                        byte[] buffer = str.getBytes();
-                        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-                        InetAddress ip = InetAddress.getByName(ipname);
-                        gp.connectedIP = null;
-                        packet.setAddress(ip);
-                        packet.setPort(port);
-                        Condivisa.getInstance().serverInvio.send(packet);
-                    } catch (SocketException ex) {
-                        Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (UnknownHostException ex) {
-                        Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    JOptionPane.showMessageDialog(this, "Connessione annullata...");
-                }
-
-            }
-        }
-    }
-
-    private void Attacco() {
-        if (c.turno) {
+        String ipname = jTextField1.getText();
+        if (!ipname.equals("")) {
             try {
-                //invio attacco
-                //aggiungere che prende la mossa selezionata
-                System.out.println(m.getNome());
-                System.out.println("ATTACCO INVIATO");
-                String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();
-                int danno = m.getDannoBase();//mancano gli eventuali buff e debuff
-                String effetto = "";
-                String str = "at;" + m.getNome() + ";" + danno + ";" + effetto + ";";
+                System.out.println("P inviato\n");
+                Condivisa c = Condivisa.getInstance();
+                c.mittente = true;
+                // TODO add your handling code here:               
+                String str = "a;" + c.nome + ";";
                 byte[] buffer = str.getBytes();
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 InetAddress ip = InetAddress.getByName(ipname);
+                Gestore_Packet gp = Gestore_Packet.GetInstance();
+                gp.connectedIP = ip;
                 packet.setAddress(ip);
                 packet.setPort(port);
-                c.serverInvio.send(packet);
-                c.turno = false;
+                Condivisa.getInstance().serverInvio.send(packet);
+                Condivisa.getInstance().turno = true;
             } catch (SocketException ex) {
                 Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnknownHostException ex) {
@@ -284,9 +226,62 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            AlertTurno();
+
+            String[] opt = {"OK", "ANNULLA"};
+            int choice = JOptionPane.showOptionDialog(this, "Connessione...", null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[1]);
+
+            if (choice == 1) {
+                try {
+                    Condivisa c = Condivisa.getInstance();
+                    Gestore_Packet gp = Gestore_Packet.GetInstance();
+                    c.mittente = false;
+                    // TODO add your handling code here:               
+                    String str = "n;" + c.nome + ";";
+                    byte[] buffer = str.getBytes();
+                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                    InetAddress ip = InetAddress.getByName(ipname);
+                    gp.connectedIP = null;
+                    packet.setAddress(ip);
+                    packet.setPort(port);
+                    Condivisa.getInstance().serverInvio.send(packet);
+                } catch (SocketException ex) {
+                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(this, "Connessione annullata...");
+            }
+
         }
+
+    }
+
+    private void Attacco(Mossa m) {
+        try {
+            //invio attacco
+            //aggiungere che prende la mossa selezionata
+            System.out.println(m.getNome());
+            System.out.println("ATTACCO INVIATO");
+            String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();
+            int danno = m.getDannoBase();//mancano gli eventuali buff e debuff
+            String effetto = "";
+            String str = "at;" + m.getNome() + ";" + danno + ";" + effetto + ";";
+            byte[] buffer = str.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            InetAddress ip = InetAddress.getByName(ipname);
+            packet.setAddress(ip);
+            packet.setPort(port);
+            c.serverInvio.send(packet);
+        } catch (SocketException ex) {
+            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private void Chiusura() {
@@ -327,48 +322,59 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
         }
     }
 
-    private void CambioPokemon() {
-        if (c.turno) {
-            try {
-                Pokemon pokemon = c.squadra.get(c.pokemonAttuale);
-                //invio cambio pokemon
-                System.out.println(m.getNome());
-                System.out.println("POKEMON INVIATO");
-                String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();
-                String effetto = "";
-                String str = "p;" + pokemon.getNome() + ";" + pokemon.getVitaAttuale() + ";" + c.numePokemon + ";" + pokemon.getImgFront() + ";";
-                byte[] buffer = str.getBytes();
-                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-                InetAddress ip = InetAddress.getByName(ipname);
-                packet.setAddress(ip);
-                packet.setPort(port);
-                c.serverInvio.send(packet);
-                c.turno = false;
-            } catch (SocketException ex) {
-                Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            AlertTurno();
+    private void CambioPokemon(Pokemon selezionato) {
+        try {
+            //invio cambio pokemon
+            System.out.println(m.getNome());
+            System.out.println("POKEMON INVIATO");
+            String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();
+            String effetto = "";
+            String str = "p;" + selezionato.getNome() + ";" + selezionato.getVitaAttuale() + ";" + c.numePokemon + ";" + selezionato.getImgFront() + ";";
+            byte[] buffer = str.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            InetAddress ip = InetAddress.getByName(ipname);
+            packet.setAddress(ip);
+            packet.setPort(port);
+            c.serverInvio.send(packet);
+        } catch (SocketException ex) {
+            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        Connesione();
+        if (!c.connected) {
+            Connesione();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sei già connesso ad una partita");
+        }
 
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        Attacco();
+        if (c.turno) {
+            Attacco(m);
+            c.turno = false;
+
+        } else {
+            AlertTurno();
+        }
 
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
-        CambioPokemon();
+        // TODO add your handling code here:  if (c.turno) {
+        if (c.turno) {
+            Pokemon selezionato = c.squadra.get(c.pokemonAttuale);
+            CambioPokemon(selezionato);
+            c.turno = false;
+        } else {
+            AlertTurno();
+        }
 
     }//GEN-LAST:event_jButton3MouseClicked
 
@@ -397,13 +403,17 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TestConnessioneFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TestConnessioneFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TestConnessioneFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TestConnessioneFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -417,9 +427,11 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
                 try {
                     new TestConnessioneFrame().setVisible(true);
                 } catch (SocketException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TestConnessioneFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 } catch (UnknownHostException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TestConnessioneFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -431,6 +443,21 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
     GridBagConstraints gc = new GridBagConstraints();
     int i = 0;
 
+    private void LoadOggetti() {
+        Consumabile pozione = new Consumabile(0, "pozione", 5);
+        c.consumabili.add(pozione);
+        Consumabile superpozione = new Consumabile(0, "superpozione", 3);
+        c.consumabili.add(superpozione);
+        Consumabile ricaricaTot = new Consumabile(0, "ricaticatotale", 1);
+        c.consumabili.add(ricaricaTot);
+        Consumabile rev = new Consumabile(0, "revitalizzante", 1);
+        c.consumabili.add(rev);
+        Consumabile prote = new Consumabile(0, "proteina", 5);
+        c.consumabili.add(prote);
+        Consumabile ferro = new Consumabile(0, "ferro", 5);
+        c.consumabili.add(ferro);
+
+    }
 //    @Override
 //    public void paint(Graphics g) {
 //        super.paint(g); //To change body of generated methods, choose Tools | Templates.

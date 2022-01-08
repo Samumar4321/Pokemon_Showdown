@@ -4,6 +4,7 @@
  */
 package pokemon;
 
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
 public class ThreadPaint extends Thread{
     Condivisa c;
 
-    public ThreadPaint() {
+    public ThreadPaint() throws SocketException {
         c = Condivisa.getInstance();
     }
 

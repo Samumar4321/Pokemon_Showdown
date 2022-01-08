@@ -90,6 +90,15 @@ public class Condivisa {
         return null;
     }
 
+    public Consumabile getOggettoByName(String name) {
+        for (int i = 0; i < consumabili.size(); i++) {
+            if (consumabili.get(i).getNome().equals(name)) {
+                return consumabili.get(i);
+            }
+        }
+        return null;
+    }
+
     public Pokemon getPokemonByName(String name) {
         for (int i = 0; i < pokemons.size(); i++) {
             if (pokemons.get(i).getNome().equals(name)) {

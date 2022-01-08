@@ -20,7 +20,7 @@ public class Eff_Sonno extends Effetto {
 
     @Override
     public int execute(Pokemon p) {
-     
+         return -1;
     }
 
 }

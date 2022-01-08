@@ -21,11 +21,21 @@ public class Messaggio_Pokemon extends Messaggio {
     @Override
     public void execute() {
         String[] csv = new String(packet.getData()).split(";");
-        Pokemon p = new Pokemon(c.getPokemonByName(csv[1]));
-        p.setVitaAttuale(Integer.parseInt(csv[2]));
-        c.pokRimanentiAvv = Integer.parseInt(csv[3]);
-        c.pokemonAvversario = p;
-        c.turno = true;
+        Pokemon temp = c.getPokemonByName(csv[1]);
+        if (temp != null) {
+            if (csv[4].equals(""))  {
+                //risposta al mio attacco
+
+            } else {
+                //l'altro cambia il pokemon
+                Pokemon p = new Pokemon(temp);
+                p.setVitaAttuale(Integer.parseInt(csv[2]));
+                c.pokRimanentiAvv = Integer.parseInt(csv[3]);
+                c.pokemonAvversario = p;
+                c.turno = true;
+            }
+        }
+
     }
 
 }
