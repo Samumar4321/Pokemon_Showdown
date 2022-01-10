@@ -23,6 +23,7 @@ public class Messaggio_Chiusura extends Messaggio {
     @Override
     public void execute() {
         c.connected = false;
+        c.win = true;
         JOptionPane.showMessageDialog(c.frame, "CONGRATURAZIONI HAI VINTO!!!!!!!!!!!!!!");
     }
 

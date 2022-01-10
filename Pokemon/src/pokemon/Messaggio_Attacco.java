@@ -32,7 +32,7 @@ public class Messaggio_Attacco extends Messaggio {
                 //calcolo
                 int danno = Integer.parseInt(csv[2]);
                 double molt = (c.efficaciaTipo(m.getTipo(), c.squadra.get(c.pokemonAttuale).getTipi()));
-                danno = (int) ((((42) * ((c.pokemonAvversario.getAttacco() * danno) / pAttuale.getDifesa())) / 50) * molt); //mancano gli eventuali buff e debuff
+                danno = (int) ((((42) * ((danno) / pAttuale.getDifesa())) / 50) * molt); //mancano gli eventuali buff e debuff
                 pAttuale.setVitaAttuale(pAttuale.getVitaAttuale() - danno);
                 if (pAttuale.getVitaAttuale() <= 0) {
                     c.numePokemon--;

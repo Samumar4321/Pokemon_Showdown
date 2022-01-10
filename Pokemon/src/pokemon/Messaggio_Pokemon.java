@@ -23,8 +23,9 @@ public class Messaggio_Pokemon extends Messaggio {
         String[] csv = new String(packet.getData()).split(";");
         Pokemon temp = c.getPokemonByName(csv[1]);
         if (temp != null) {
-            if (csv[4].equals(""))  {
+            if (csv[4].equals("")) {
                 //risposta al mio attacco
+                
 
             } else {
                 //l'altro cambia il pokemon

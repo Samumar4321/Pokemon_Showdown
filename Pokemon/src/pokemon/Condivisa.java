@@ -42,6 +42,7 @@ public class Condivisa {
     boolean mittente;
     DatagramSocket serverRicezione;
     DatagramSocket serverInvio;
+    boolean win = false;
 
     private Condivisa() throws SocketException {
         consumabili = new ArrayList();

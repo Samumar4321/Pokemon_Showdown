@@ -60,6 +60,7 @@ public class Consumabile {
             }
             case "revitalizzante": {
                 //rianima pokemon a 50% hp
+                
                 break;
             }
             case "proteina": {

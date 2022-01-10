@@ -20,6 +20,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -264,10 +265,16 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
             //aggiungere che prende la mossa selezionata
             System.out.println(m.getNome());
             System.out.println("ATTACCO INVIATO");
+            Random r = new Random();
             String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();
-            int danno = m.getDannoBase();//mancano gli eventuali buff e debuff
+            int chance = r.nextInt() % 3;
+            int danno = 0;
+            if (chance != 2) {
+
+                danno = m.getDannoBase() * c.squadra.get(c.pokemonAttuale).getAttacco();//mancano gli eventuali buff e debuff
+            }
             String effetto = "";
-            String str = "at;" + m.getNome() + ";" + danno + ";" + effetto + ";";
+            String str = "at;" + m.getNome() + ";" + (danno) + ";" + effetto + ";";
             byte[] buffer = str.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             InetAddress ip = InetAddress.getByName(ipname);
@@ -308,17 +315,21 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
                     c.nomeDestinatario = "";
                     jScrollPane1.setBorder(null);
                 } catch (SocketException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TestConnessioneFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 } catch (UnknownHostException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TestConnessioneFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TestConnessioneFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Connettersi con un host");
             }
         } catch (SocketException ex) {
-            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -337,11 +348,14 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
             packet.setPort(port);
             c.serverInvio.send(packet);
         } catch (SocketException ex) {
-            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
-            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
