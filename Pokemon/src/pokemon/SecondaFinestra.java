@@ -5,6 +5,8 @@
 package pokemon;
 
 import java.io.IOException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -19,23 +21,29 @@ public class SecondaFinestra extends javax.swing.JFrame {
     /**
      * Creates new form SecondaFinestra
      */
-    
-
-    
     private DefaultListModel<String> model;
     private JList<String> list;
-    
-    
+    Condivisa c;
+    T_Listen listen;
+
     public SecondaFinestra() throws IOException {
         initComponents();
+        c = Condivisa.getInstance();
         super.setTitle("La tua squadra");
-        
+        listen = new T_Listen();
+        listen.start();
+        listen.setName("listen");
+
     }
-    
-    public SecondaFinestra(DefaultListModel l) {
+
+    public SecondaFinestra(DefaultListModel l) throws SocketException, UnknownHostException {
         initComponents();
         model = l;
+        c = Condivisa.getInstance();
         jList1.setModel(model);
+        listen = new T_Listen();
+        listen.start();
+        listen.setName("listen");
     }
 
     /**
@@ -111,19 +119,24 @@ public class SecondaFinestra extends javax.swing.JFrame {
         //HOME
         TESTFRAME win1;
         try {
+            listen.interrupt();
+            listen.join();
             win1 = new TESTFRAME();
             win1.setVisible(true);
-        this.setVisible(false);
+            this.setVisible(false);
+
         } catch (IOException ex) {
             Logger.getLogger(SecondaFinestra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SecondaFinestra.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SocketException, UnknownHostException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -157,6 +170,7 @@ public class SecondaFinestra extends javax.swing.JFrame {
                 }
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

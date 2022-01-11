@@ -42,8 +42,8 @@ public class TESTFRAME extends javax.swing.JFrame {
     public TESTFRAME() throws IOException {
 
         initComponents();
-        LoadGame();
         super.setTitle("Pokemon");
+        LoadGame();
         cont = 0;
 
         model = new DefaultListModel<>();
@@ -284,11 +284,17 @@ public class TESTFRAME extends javax.swing.JFrame {
 
         if (!jTextPane1.getText().equals("") && model.getSize() == 6) {
 
-            //NEW WINDOW
-            win2 = new SecondaFinestra(model);
-
-            win2.setVisible(true);
-            this.setVisible(false);
+            try {
+                setSquadra();
+                //NEW WINDOW
+                win2 = new SecondaFinestra(model);
+                win2.setVisible(true);
+                this.setVisible(false);
+            } catch (SocketException ex) {
+                Logger.getLogger(TESTFRAME.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(TESTFRAME.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             //MESSAGGIO DI ERRORE
@@ -296,18 +302,33 @@ public class TESTFRAME extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton5ActionPerformed
+    private void setSquadra() {
+        for (int j = 0; j < 6; j++) {
+            String nomeP = model.get(j);
+
+            Pokemon p = new Pokemon(c.getPokemonByName(nomeP));
+            c.squadra.add(p);
+        }
+        c.numePokemon = 6;
+
+    }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         //ARR RIGHT
         try {
             c = Condivisa.getInstance();
-            if (cont < c.pokemons.size() - 1) cont++;
- 
-            if (cont == 9) jButton3.setEnabled(false);
+            if (cont < c.pokemons.size() - 1) {
+                cont++;
+            }
 
-            if (cont != 0) jButton1.setEnabled(true);
-            
+            if (cont == 9) {
+                jButton3.setEnabled(false);
+            }
+
+            if (cont != 0) {
+                jButton1.setEnabled(true);
+            }
 
             p = c.pokemons;
             pok = p.get(cont);
@@ -320,7 +341,8 @@ public class TESTFRAME extends javax.swing.JFrame {
             jLabel4.setIcon(icon);
 
         } catch (SocketException ex) {
-            Logger.getLogger(TESTFRAME.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TESTFRAME.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -329,10 +351,14 @@ public class TESTFRAME extends javax.swing.JFrame {
         //ARR LEFT
         try {
             c = Condivisa.getInstance();
-            if (cont > 0) cont--;
+            if (cont > 0) {
+                cont--;
+            }
 
-            if (cont == 0) jButton1.setEnabled(false);
-            
+            if (cont == 0) {
+                jButton1.setEnabled(false);
+            }
+
             jButton3.setEnabled(true);
 
             p = c.pokemons;
@@ -346,7 +372,8 @@ public class TESTFRAME extends javax.swing.JFrame {
             jLabel4.setIcon(icon);
 
         } catch (SocketException ex) {
-            Logger.getLogger(TESTFRAME.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TESTFRAME.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -369,7 +396,6 @@ public class TESTFRAME extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         //REMOVE SQUADRA
-
         boolean trovato = false;
         for (int i = 0; i < model.size() && trovato == false; i++) {
             if (model.get(i).equals(nomeP)) {
@@ -379,19 +405,19 @@ public class TESTFRAME extends javax.swing.JFrame {
             }
         }
 
-        if (trovato == false) TESTFRAME.infoBox("Non hai selezionato nessun pokemon!", "Ops..");
-
+        if (trovato == false) {
+            TESTFRAME.infoBox("Non hai selezionato nessun pokemon!", "Ops..");
+        }
 
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        
+
         StatisticaPokemonGui sp = new StatisticaPokemonGui();
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
@@ -411,13 +437,17 @@ public class TESTFRAME extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TESTFRAME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TESTFRAME.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TESTFRAME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TESTFRAME.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TESTFRAME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TESTFRAME.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TESTFRAME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TESTFRAME.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -427,16 +457,19 @@ public class TESTFRAME extends javax.swing.JFrame {
                 try {
                     new TESTFRAME().setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(TESTFRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TESTFRAME.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
         });
+
     }
 
     @Override
     public void setContentPane(Container contentPane) {
         super.setContentPane(contentPane);
+
     }
 
     class backgroundPanel extends JComponent {
@@ -481,6 +514,8 @@ public class TESTFRAME extends javax.swing.JFrame {
             System.out.println(p.toString() + "\n\n");
         }
         c.pokemons = pks;
+        LoadOggetti();
+        c.effetti = loadEffetti();
     }
 
     private List<ContainerEff> loadEffetti() {
@@ -508,6 +543,23 @@ public class TESTFRAME extends javax.swing.JFrame {
         effetti.add(e5);
 
         return effetti;
+    }
+
+    private void LoadOggetti() throws SocketException {
+        Condivisa c = Condivisa.getInstance();
+        Consumabile pozione = new Consumabile(0, "pozione", 5);
+        c.consumabili.add(pozione);
+        Consumabile superpozione = new Consumabile(0, "superpozione", 3);
+        c.consumabili.add(superpozione);
+        Consumabile ricaricaTot = new Consumabile(0, "ricaticatotale", 1);
+        c.consumabili.add(ricaricaTot);
+        Consumabile rev = new Consumabile(0, "revitalizzante", 1);
+        c.consumabili.add(rev);
+        Consumabile prote = new Consumabile(0, "proteina", 5);
+        c.consumabili.add(prote);
+        Consumabile ferro = new Consumabile(0, "ferro", 5);
+        c.consumabili.add(ferro);
+
     }
 
     public static void infoBox(String infoMessage, String titleBar) {

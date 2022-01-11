@@ -457,21 +457,7 @@ public class TestConnessioneFrame extends javax.swing.JFrame {
     GridBagConstraints gc = new GridBagConstraints();
     int i = 0;
 
-    private void LoadOggetti() {
-        Consumabile pozione = new Consumabile(0, "pozione", 5);
-        c.consumabili.add(pozione);
-        Consumabile superpozione = new Consumabile(0, "superpozione", 3);
-        c.consumabili.add(superpozione);
-        Consumabile ricaricaTot = new Consumabile(0, "ricaticatotale", 1);
-        c.consumabili.add(ricaricaTot);
-        Consumabile rev = new Consumabile(0, "revitalizzante", 1);
-        c.consumabili.add(rev);
-        Consumabile prote = new Consumabile(0, "proteina", 5);
-        c.consumabili.add(prote);
-        Consumabile ferro = new Consumabile(0, "ferro", 5);
-        c.consumabili.add(ferro);
-
-    }
+  
 //    @Override
 //    public void paint(Graphics g) {
 //        super.paint(g); //To change body of generated methods, choose Tools | Templates.
