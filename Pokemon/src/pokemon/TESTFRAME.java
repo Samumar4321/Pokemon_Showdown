@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
@@ -33,6 +34,7 @@ public class TESTFRAME extends javax.swing.JFrame {
     private JList<String> list;
     private List<Pokemon> p;
     private Pokemon pok;
+    //private ArrayList<Pokemon> pokemonScelti;
 
     private SecondaFinestra win2;
 
@@ -42,6 +44,7 @@ public class TESTFRAME extends javax.swing.JFrame {
     public TESTFRAME() throws IOException {
 
         initComponents();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setTitle("Pokemon");
         LoadGame();
         cont = 0;
@@ -50,7 +53,7 @@ public class TESTFRAME extends javax.swing.JFrame {
         list = new JList<>(model);
 
         c = Condivisa.getInstance();
-        List<Pokemon> p = c.pokemons;
+        p = c.pokemons;
         pok = p.get(0);
         nomeP = pok.getNome();
         ImageIcon ic = new ImageIcon();
@@ -287,12 +290,14 @@ public class TESTFRAME extends javax.swing.JFrame {
             try {
                 setSquadra();
                 //NEW WINDOW
-                win2 = new SecondaFinestra(model);
+                win2 = new SecondaFinestra();
                 win2.setVisible(true);
                 this.setVisible(false);
             } catch (SocketException ex) {
                 Logger.getLogger(TESTFRAME.class.getName()).log(Level.SEVERE, null, ex);
             } catch (UnknownHostException ex) {
+                Logger.getLogger(TESTFRAME.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(TESTFRAME.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -303,6 +308,7 @@ public class TESTFRAME extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
     private void setSquadra() {
+        c.squadra.clear();
         for (int j = 0; j < 6; j++) {
             String nomeP = model.get(j);
 
@@ -310,7 +316,6 @@ public class TESTFRAME extends javax.swing.JFrame {
             c.squadra.add(p);
         }
         c.numePokemon = 6;
-
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -384,6 +389,7 @@ public class TESTFRAME extends javax.swing.JFrame {
         if (model.getSize() < 6) {
             p = c.pokemons;
             pok = p.get(cont);
+            
             nomeP = pok.getNome();
             model.addElement(nomeP);
             jList1.setModel(model);
