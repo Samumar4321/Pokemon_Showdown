@@ -4,14 +4,24 @@
  */
 package pokemon;
 
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -22,6 +32,7 @@ public class Lotta extends javax.swing.JFrame {
     /**
      * Creates new form Lotta
      */
+    int port = 12345;
     Condivisa c;
     Pokemon pokemon;
     String nomeP;
@@ -31,11 +42,72 @@ public class Lotta extends javax.swing.JFrame {
     private DefaultListModel<String> modelMosse, modelNomi;
     private JList<String> list;
 
-    public Lotta() throws SocketException {
+    private void setSquadra() throws SocketException {
+        c = Condivisa.getInstance();
+        for (int j = 0; j < 6; j++) {
+            Pokemon p = new Pokemon(c.pokemons.get(0));
+            c.squadra.add(p);
+        }
+        c.numePokemon = 6;
+    }//delete
+
+    private void LoadGame() throws IOException {
+        Condivisa c = Condivisa.getInstance();
+        c.effetti = loadEffetti();
+        GestoreFIle gf = new GestoreFIle(c);
+        List<Tipo> tp = gf.loadTipi("tipi.txt");
+        System.out.println("-------------------TIPI-------------------");
+        for (Tipo t : tp) {
+            System.out.println(t.toString() + "\n\n");
+        }
+        c.tipi = tp;
+        List<Mossa> ms = gf.loadMosse("mosse.txt");
+        System.out.println("\n\n\n");
+        System.out.println("-------------------MOSSE-------------------");
+        for (Mossa m : ms) {
+            System.out.println(m.toString() + "\n\n");
+        }
+        c.mosse = ms;
+        List<Pokemon> pks = gf.loadPokemon("pokemon.txt");
+        for (Pokemon p : pks) {
+            System.out.println(p.toString() + "\n\n");
+        }
+        c.pokemons = pks;
+    }//delete
+
+    private List<ContainerEff> loadEffetti() {
+        int i = 0;
+        List<ContainerEff> effetti = new ArrayList<ContainerEff>();
+        Eff_Veleno v = new Eff_Veleno(0, "veleno", 4, 8);
+        ContainerEff e1 = new ContainerEff((Inteface) v);
+        effetti.add(e1);
+
+        Eff_Congelamento c = new Eff_Congelamento(1, "congelamento", 1);
+        ContainerEff e2 = new ContainerEff((Inteface) v);
+        effetti.add(e2);
+
+        Eff_Scottatura s = new Eff_Scottatura(2, "scottatura", 3, 16, 50);
+        ContainerEff e3 = new ContainerEff((Inteface) s);
+        effetti.add(e3);
+
+        Eff_Sonno sonno = new Eff_Sonno(3, "sonno", 0);
+        ContainerEff e4 = new ContainerEff((Inteface) sonno);
+        effetti.add(e4);
+
+        Eff_Confusione confusione = new Eff_Confusione(4, "confusione", 2);
+        ContainerEff e5 = new ContainerEff((Inteface) confusione);
+
+        effetti.add(e5);
+
+        return effetti;
+    }//delete
+
+    public Lotta() throws SocketException, IOException {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         c = Condivisa.getInstance();
-
+        LoadGame();
+        setSquadra();
         jLabel6.setText("---");
         jLabel7.setText("---");
         jLabel8.setText("---");
@@ -211,6 +283,11 @@ public class Lotta extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(51, 51, 255));
         jButton1.setText("ATTACCA");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -331,6 +408,9 @@ public class Lotta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+   private void AlertTurno() {
+        JOptionPane.showMessageDialog(this, "ASPETTARE IL PROPRIO TURNO");
+    }
 
     public ImageIcon setIconSelected(String str) {
         ic = new ImageIcon();
@@ -405,17 +485,27 @@ public class Lotta extends javax.swing.JFrame {
         jLabel8.setText(String.valueOf(pokemon.getDifesa()));
         jLabel15.setText(pokemon.getNome());
         caricaMosseSignoloPokemon(pokemon);
+        CambioPokemon(pokemon);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         // TODO add your handling code here:
         String str = jList1.getSelectedValue();
         mossa = c.getMossaByName(str);
-
         jLabel12.setText(mossa.getTipo().getNome());
         jLabel13.setText(String.valueOf(mossa.getDannoBase()));
-        jLabel14.setText(mossa.getEffetto().toString());
+        try {
+            jLabel14.setText(mossa.getEffetto().toString());
+        } catch (NullPointerException ex) {
+            jLabel14.setText("");
+        }
     }//GEN-LAST:event_jList1ValueChanged
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        String str = jList1.getSelectedValue();
+        Attacco(c.getMossaByName(str));
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -450,9 +540,105 @@ public class Lotta extends javax.swing.JFrame {
                 new Lotta().setVisible(true);
             } catch (SocketException ex) {
                 Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
+
+    private void Attacco(Mossa m) {
+        try {
+            //invio attacco
+            //aggiungere che prende la mossa selezionata
+            System.out.println(m.getNome());
+            System.out.println("ATTACCO INVIATO");
+            Random r = new Random();
+            String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();
+            int chance = r.nextInt() % 3;
+            int danno = 0;
+            if (chance != 2) {
+
+                danno = m.getDannoBase() * c.squadra.get(c.pokemonAttuale).getAttacco();//mancano gli eventuali buff e debuff
+            }
+            String effetto = "";
+            String str = "at;" + m.getNome() + ";" + (danno) + ";" + effetto + ";";
+            byte[] buffer = str.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            InetAddress ip = InetAddress.getByName(ipname);
+            packet.setAddress(ip);
+            packet.setPort(port);
+            c.serverInvio.send(packet);
+        } catch (SocketException ex) {
+            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void Chiusura() {
+        try {
+            // TODO add your handling code here:
+            if (Condivisa.getInstance().connected) {
+                try {
+                    Condivisa.getInstance().connected = false;
+                    Gestore_Packet gp = Gestore_Packet.GetInstance();
+                    System.out.println("MESSAGGIO CHIUSURA INVIATO");
+                    String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();
+                    String str = "c;";
+                    byte[] buffer = str.getBytes();
+                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                    InetAddress ip = InetAddress.getByName(ipname);
+                    packet.setAddress(ip);
+                    packet.setPort(port);
+                    Condivisa.getInstance().serverInvio.send(packet);
+                    c.nomeDestinatario = "";
+                } catch (SocketException ex) {
+                    Logger.getLogger(TestConnessioneFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(TestConnessioneFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TestConnessioneFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Connettersi con un host");
+            }
+        } catch (SocketException ex) {
+            Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void CambioPokemon(Pokemon selezionato) {
+        try {
+            //invio cambio pokemon           
+            System.out.println("POKEMON INVIATO");
+            String ipname = Gestore_Packet.GetInstance().connectedIP.getHostName();
+            String effetto = "";
+            String str = "p;" + selezionato.getNome() + ";" + selezionato.getVitaAttuale() + ";" + c.numePokemon + ";" + selezionato.getImgFront() + ";";
+            byte[] buffer = str.getBytes();
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            InetAddress ip = InetAddress.getByName(ipname);
+            packet.setAddress(ip);
+            packet.setPort(port);
+            c.serverInvio.send(packet);
+        } catch (SocketException ex) {
+            Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TestConnessioneFrame.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

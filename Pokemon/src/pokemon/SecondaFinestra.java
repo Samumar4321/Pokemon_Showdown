@@ -6,12 +6,15 @@ package pokemon;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,6 +30,7 @@ public class SecondaFinestra extends javax.swing.JFrame {
     ImageIcon ic;
     Image img;
     ImageIcon icon;
+    int port = 12345;
 
     private Lotta win;
 
@@ -147,6 +151,7 @@ public class SecondaFinestra extends javax.swing.JFrame {
         jLabel77 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
         jLabel79 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -292,6 +297,8 @@ public class SecondaFinestra extends javax.swing.JFrame {
         jLabel79.setForeground(new java.awt.Color(51, 51, 255));
         jLabel79.setText("n");
 
+        jTextField1.setText("INDIRIZZO AVVERSARIO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -350,6 +357,8 @@ public class SecondaFinestra extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(106, 106, 106)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)))
                 .addGap(44, 44, 44))
@@ -428,7 +437,10 @@ public class SecondaFinestra extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27))))
+                                .addGap(27, 27, 27))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -462,15 +474,78 @@ public class SecondaFinestra extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             // TODO add your handling code here:
-
-            win = new Lotta();
-            win.setVisible(true);
-            this.setVisible(false);
+            int i = Connessione();
+            if (i == 0) {
+                win = new Lotta();
+                win.setVisible(true);
+                this.setVisible(false);
+            }
         } catch (SocketException ex) {
             Logger.getLogger(SecondaFinestra.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
+    private int Connessione() {
+
+        String ipname = jTextField1.getText();
+        if (!ipname.equals("")) {
+            try {
+                System.out.println("P inviato\n");
+                Condivisa c = Condivisa.getInstance();
+                c.mittente = true;
+                // TODO add your handling code here:               
+                String str = "a;" + c.nome + ";";
+                byte[] buffer = str.getBytes();
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                InetAddress ip = InetAddress.getByName(ipname);
+                Gestore_Packet gp = Gestore_Packet.GetInstance();
+                gp.connectedIP = ip;
+                packet.setAddress(ip);
+                packet.setPort(port);
+                Condivisa.getInstance().serverInvio.send(packet);
+                Condivisa.getInstance().turno = true;
+            } catch (SocketException ex) {
+                return -1;
+            } catch (UnknownHostException ex) {
+                return -1;
+            } catch (IOException ex) {
+                return -1;
+            }
+
+            String[] opt = {"OK", "ANNULLA"};
+            int choice = JOptionPane.showOptionDialog(this, "Connessione...", null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opt, opt[1]);
+
+            if (choice == 1) {
+                try {
+                    Condivisa c = Condivisa.getInstance();
+                    Gestore_Packet gp = Gestore_Packet.GetInstance();
+                    c.mittente = false;
+                    // TODO add your handling code here:               
+                    String str = "n;" + c.nome + ";";
+                    byte[] buffer = str.getBytes();
+                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                    InetAddress ip = InetAddress.getByName(ipname);
+                    gp.connectedIP = null;
+                    packet.setAddress(ip);
+                    packet.setPort(port);
+                    Condivisa.getInstance().serverInvio.send(packet);
+                    JOptionPane.showMessageDialog(this, "Connessione annullata...");
+                    return 1;
+                } catch (SocketException ex) {
+                    return -1;
+                } catch (UnknownHostException ex) {
+                    return -1;
+                } catch (IOException ex) {
+                    return -1;
+                }
+
+            }
+            return 0;
+
+        }
+        return -1;
+
+    }
 
     /**
      * @param args the command line arguments
@@ -547,5 +622,6 @@ public class SecondaFinestra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
