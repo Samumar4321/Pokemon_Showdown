@@ -10,11 +10,8 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.event.ListSelectionEvent;
 
 /**
  *
@@ -25,12 +22,13 @@ public class SecondaFinestra extends javax.swing.JFrame {
     /**
      * Creates new form SecondaFinestra
      */
-
     Condivisa c;
     T_Listen listen;
     ImageIcon ic;
     Image img;
     ImageIcon icon;
+
+    private Lotta win;
 
     public SecondaFinestra() throws IOException {
         initComponents();
@@ -43,77 +41,67 @@ public class SecondaFinestra extends javax.swing.JFrame {
         listen = new T_Listen();
         listen.start();
         listen.setName("listen");
-       
-        
-       //1 pokemon
-       jLabel1.setText(c.squadra.get(0).getNome());
-       img = ImageFromUrl.show(c.squadra.get(0).getImgFront());
-       icon = new ImageIcon(img);
-       jLabel3.setIcon(icon);
-       
-       jLabel8.setText(String.valueOf("HP: " + c.squadra.get(0).getVitaMax()));
-       jLabel7.setText(String.valueOf("ATTACCO: " + c.squadra.get(0).getAttacco()));
-       jLabel9.setText(String.valueOf("DIFFESA: " + c.squadra.get(0).getDifesa()));
-       
-       //2 pokemon
-       
-       jLabel10.setText(c.squadra.get(1).getNome());
-       img = ImageFromUrl.show(c.squadra.get(1).getImgFront());
-       icon = new ImageIcon(img);
-       jLabel11.setIcon(icon);
-       
-       jLabel54.setText(String.valueOf("HP: " + c.squadra.get(1).getVitaMax()));
-       jLabel53.setText(String.valueOf("ATTACCO: " + c.squadra.get(1).getAttacco()));
-       jLabel55.setText(String.valueOf("DIFFESA: " + c.squadra.get(1).getDifesa()));
-       
-       
-       //3 pokemon
-       
-       jLabel18.setText(c.squadra.get(2).getNome());
-       img = ImageFromUrl.show(c.squadra.get(2).getImgFront());
-       icon = new ImageIcon(img);
-       jLabel19.setIcon(icon);
-       
-       jLabel60.setText(String.valueOf("HP: " + c.squadra.get(2).getVitaMax()));
-       jLabel59.setText(String.valueOf("ATTACCO: " + c.squadra.get(2).getAttacco()));
-       jLabel61.setText(String.valueOf("DIFFESA: " + c.squadra.get(2).getDifesa()));
-       
-       
-       //4 pokemon
-       
-       jLabel26.setText(c.squadra.get(3).getNome());
-       img = ImageFromUrl.show(c.squadra.get(3).getImgFront());
-       icon = new ImageIcon(img);
-       jLabel27.setIcon(icon);
-       
-       jLabel66.setText(String.valueOf("HP: " + c.squadra.get(3).getVitaMax()));
-       jLabel65.setText(String.valueOf("ATTACCO: " + c.squadra.get(3).getAttacco()));
-       jLabel67.setText(String.valueOf("DIFFESA: " + c.squadra.get(3).getDifesa()));
-       
-       
-       //5 pokemon
-       
-       jLabel34.setText(c.squadra.get(4).getNome());
-       img = ImageFromUrl.show(c.squadra.get(4).getImgFront());
-       icon = new ImageIcon(img);
-       jLabel35.setIcon(icon);
-       
-       jLabel72.setText(String.valueOf("HP: " + c.squadra.get(4).getVitaMax()));
-       jLabel71.setText(String.valueOf("ATTACCO: " + c.squadra.get(4).getAttacco()));
-       jLabel73.setText(String.valueOf("DIFFESA: " + c.squadra.get(4).getDifesa()));
- 
-       
-       //6 pokemon
-       
-       jLabel42.setText(c.squadra.get(5).getNome());
-       img = ImageFromUrl.show(c.squadra.get(5).getImgFront());
-       icon = new ImageIcon(img);
-       jLabel43.setIcon(icon);
-       
-       jLabel78.setText(String.valueOf("HP: " + c.squadra.get(5).getVitaMax()));
-       jLabel77.setText(String.valueOf("ATTACCO: " + c.squadra.get(5).getAttacco()));
-       jLabel79.setText(String.valueOf("DIFFESA: " + c.squadra.get(5).getDifesa()));
-       
+
+        //1 pokemon
+        jLabel1.setText(c.squadra.get(0).getNome());
+        img = ImageFromUrl.show(c.squadra.get(0).getImgFront());
+        icon = new ImageIcon(img);
+        jLabel3.setIcon(icon);
+
+        jLabel8.setText(String.valueOf("HP: " + c.squadra.get(0).getVitaMax()));
+        jLabel7.setText(String.valueOf("ATTACCO: " + c.squadra.get(0).getAttacco()));
+        jLabel9.setText(String.valueOf("DIFESA: " + c.squadra.get(0).getDifesa()));
+
+        //2 pokemon
+        jLabel10.setText(c.squadra.get(1).getNome());
+        img = ImageFromUrl.show(c.squadra.get(1).getImgFront());
+        icon = new ImageIcon(img);
+        jLabel11.setIcon(icon);
+
+        jLabel54.setText(String.valueOf("HP: " + c.squadra.get(1).getVitaMax()));
+        jLabel53.setText(String.valueOf("ATTACCO: " + c.squadra.get(1).getAttacco()));
+        jLabel55.setText(String.valueOf("DIFESA: " + c.squadra.get(1).getDifesa()));
+
+        //3 pokemon
+        jLabel18.setText(c.squadra.get(2).getNome());
+        img = ImageFromUrl.show(c.squadra.get(2).getImgFront());
+        icon = new ImageIcon(img);
+        jLabel19.setIcon(icon);
+
+        jLabel60.setText(String.valueOf("HP: " + c.squadra.get(2).getVitaMax()));
+        jLabel59.setText(String.valueOf("ATTACCO: " + c.squadra.get(2).getAttacco()));
+        jLabel61.setText(String.valueOf("DIFESA: " + c.squadra.get(2).getDifesa()));
+
+        //4 pokemon
+        jLabel26.setText(c.squadra.get(3).getNome());
+        img = ImageFromUrl.show(c.squadra.get(3).getImgFront());
+        icon = new ImageIcon(img);
+        jLabel27.setIcon(icon);
+
+        jLabel66.setText(String.valueOf("HP: " + c.squadra.get(3).getVitaMax()));
+        jLabel65.setText(String.valueOf("ATTACCO: " + c.squadra.get(3).getAttacco()));
+        jLabel67.setText(String.valueOf("DIFESA: " + c.squadra.get(3).getDifesa()));
+
+        //5 pokemon
+        jLabel34.setText(c.squadra.get(4).getNome());
+        img = ImageFromUrl.show(c.squadra.get(4).getImgFront());
+        icon = new ImageIcon(img);
+        jLabel35.setIcon(icon);
+
+        jLabel72.setText(String.valueOf("HP: " + c.squadra.get(4).getVitaMax()));
+        jLabel71.setText(String.valueOf("ATTACCO: " + c.squadra.get(4).getAttacco()));
+        jLabel73.setText(String.valueOf("DIFESA: " + c.squadra.get(4).getDifesa()));
+
+        //6 pokemon
+        jLabel42.setText(c.squadra.get(5).getNome());
+        img = ImageFromUrl.show(c.squadra.get(5).getImgFront());
+        icon = new ImageIcon(img);
+        jLabel43.setIcon(icon);
+
+        jLabel78.setText(String.valueOf("HP: " + c.squadra.get(5).getVitaMax()));
+        jLabel77.setText(String.valueOf("ATTACCO: " + c.squadra.get(5).getAttacco()));
+        jLabel79.setText(String.valueOf("DIFESA: " + c.squadra.get(5).getDifesa()));
+
     }
 
     /**
@@ -176,6 +164,11 @@ public class SecondaFinestra extends javax.swing.JFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lotta.png"))); // NOI18N
         jButton2.setContentAreaFilled(false);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe Print", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 255));
@@ -465,6 +458,19 @@ public class SecondaFinestra extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            win = new Lotta();
+            win.setVisible(true);
+            this.setVisible(false);
+        } catch (SocketException ex) {
+            Logger.getLogger(SecondaFinestra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
