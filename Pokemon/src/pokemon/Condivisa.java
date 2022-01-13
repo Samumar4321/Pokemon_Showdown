@@ -53,7 +53,7 @@ public class Condivisa {
         frame = new Frame();
         squadra = new ArrayList<Pokemon>();
         pokemonAttuale = 0;
-        this.serverRicezione = new DatagramSocket(12346);
+        this.serverRicezione = new DatagramSocket(12345);
         serverInvio = new DatagramSocket();
     }
 
