@@ -42,72 +42,11 @@ public class Lotta extends javax.swing.JFrame {
     private DefaultListModel<String> modelMosse, modelNomi;
     private JList<String> list;
 
-    private void setSquadra() throws SocketException {
-        c = Condivisa.getInstance();
-        for (int j = 0; j < 6; j++) {
-            Pokemon p = new Pokemon(c.pokemons.get(0));
-            c.squadra.add(p);
-        }
-        c.numePokemon = 6;
-    }//delete
-
-    private void LoadGame() throws IOException {
-        Condivisa c = Condivisa.getInstance();
-        c.effetti = loadEffetti();
-        GestoreFIle gf = new GestoreFIle(c);
-        List<Tipo> tp = gf.loadTipi("tipi.txt");
-        System.out.println("-------------------TIPI-------------------");
-        for (Tipo t : tp) {
-            System.out.println(t.toString() + "\n\n");
-        }
-        c.tipi = tp;
-        List<Mossa> ms = gf.loadMosse("mosse.txt");
-        System.out.println("\n\n\n");
-        System.out.println("-------------------MOSSE-------------------");
-        for (Mossa m : ms) {
-            System.out.println(m.toString() + "\n\n");
-        }
-        c.mosse = ms;
-        List<Pokemon> pks = gf.loadPokemon("pokemon.txt");
-        for (Pokemon p : pks) {
-            System.out.println(p.toString() + "\n\n");
-        }
-        c.pokemons = pks;
-    }//delete
-
-    private List<ContainerEff> loadEffetti() {
-        int i = 0;
-        List<ContainerEff> effetti = new ArrayList<ContainerEff>();
-        Eff_Veleno v = new Eff_Veleno(0, "veleno", 4, 8);
-        ContainerEff e1 = new ContainerEff((Inteface) v);
-        effetti.add(e1);
-
-        Eff_Congelamento c = new Eff_Congelamento(1, "congelamento", 1);
-        ContainerEff e2 = new ContainerEff((Inteface) v);
-        effetti.add(e2);
-
-        Eff_Scottatura s = new Eff_Scottatura(2, "scottatura", 3, 16, 50);
-        ContainerEff e3 = new ContainerEff((Inteface) s);
-        effetti.add(e3);
-
-        Eff_Sonno sonno = new Eff_Sonno(3, "sonno", 0);
-        ContainerEff e4 = new ContainerEff((Inteface) sonno);
-        effetti.add(e4);
-
-        Eff_Confusione confusione = new Eff_Confusione(4, "confusione", 2);
-        ContainerEff e5 = new ContainerEff((Inteface) confusione);
-
-        effetti.add(e5);
-
-        return effetti;
-    }//delete
 
     public Lotta() throws SocketException, IOException {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        c = Condivisa.getInstance();
-        LoadGame();
-        setSquadra();
+        c = Condivisa.getInstance();      
         jLabel6.setText("---");
         jLabel7.setText("---");
         jLabel8.setText("---");
@@ -429,63 +368,72 @@ public class Lotta extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //SELEZIONA
-        jProgressBar1.setVisible(true);
-        modelMosse.clear();
-        jList1.setModel(modelMosse);
+        if (c.turno) {
 
-        jLabel12.setText("---");
-        jLabel13.setText("---");
-        jLabel14.setText("---");
+            jProgressBar1.setVisible(true);
+            modelMosse.clear();
+            jList1.setModel(modelMosse);
 
-        String str = jList2.getSelectedValue();
+            jLabel12.setText("---");
+            jLabel13.setText("---");
+            jLabel14.setText("---");
 
-        if (str.equals("Magnezone")) {
-            pokemon = c.getPokemonByName("Magnezone");
+            String str = jList2.getSelectedValue();
+
+            if (str.equals("Magnezone")) {
+                pokemon = c.getPokemonByName("Magnezone");
+            }
+
+            if (str.equals("Latios")) {
+                pokemon = c.getPokemonByName("Latios");
+            }
+
+            if (str.equals("Giratina")) {
+                pokemon = c.getPokemonByName("Giratina");
+            }
+
+            if (str.equals("Electabuzz")) {
+                pokemon = c.getPokemonByName("Electabuzz");
+            }
+
+            if (str.equals("Lapras")) {
+                pokemon = c.getPokemonByName("Lapras");
+            }
+
+            if (str.equals("Charizard")) {
+                pokemon = c.getPokemonByName("Charizard");
+            }
+
+            if (str.equals("Wailord")) {
+                pokemon = c.getPokemonByName("Wailord");
+            }
+
+            if (str.equals("Golbat")) {
+                pokemon = c.getPokemonByName("Golbat");
+            }
+
+            if (str.equals("Sceptile")) {
+                pokemon = c.getPokemonByName("Sceptile");
+            }
+
+            if (str.equals("Mew")) {
+                pokemon = c.getPokemonByName("Mew");
+            }
+
+            jLabel1.setIcon(setIconSelected(pokemon.getImgBack()));
+            jLabel6.setText(String.valueOf(pokemon.getVitaAttuale()));
+            jLabel7.setText(String.valueOf(pokemon.getAttacco()));
+            jLabel8.setText(String.valueOf(pokemon.getDifesa()));
+            jLabel15.setText(pokemon.getNome());
+            caricaMosseSignoloPokemon(pokemon);
+            CambioPokemon(pokemon);
+            c.turno = false;
+
+        } else {
+            AlertTurno();
         }
 
-        if (str.equals("Latios")) {
-            pokemon = c.getPokemonByName("Latios");
-        }
 
-        if (str.equals("Giratina")) {
-            pokemon = c.getPokemonByName("Giratina");
-        }
-
-        if (str.equals("Electabuzz")) {
-            pokemon = c.getPokemonByName("Electabuzz");
-        }
-
-        if (str.equals("Lapras")) {
-            pokemon = c.getPokemonByName("Lapras");
-        }
-
-        if (str.equals("Charizard")) {
-            pokemon = c.getPokemonByName("Charizard");
-        }
-
-        if (str.equals("Wailord")) {
-            pokemon = c.getPokemonByName("Wailord");
-        }
-
-        if (str.equals("Golbat")) {
-            pokemon = c.getPokemonByName("Golbat");
-        }
-
-        if (str.equals("Sceptile")) {
-            pokemon = c.getPokemonByName("Sceptile");
-        }
-
-        if (str.equals("Mew")) {
-            pokemon = c.getPokemonByName("Mew");
-        }
-
-        jLabel1.setIcon(setIconSelected(pokemon.getImgBack()));
-        jLabel6.setText(String.valueOf(pokemon.getVitaAttuale()));
-        jLabel7.setText(String.valueOf(pokemon.getAttacco()));
-        jLabel8.setText(String.valueOf(pokemon.getDifesa()));
-        jLabel15.setText(pokemon.getNome());
-        caricaMosseSignoloPokemon(pokemon);
-        CambioPokemon(pokemon);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
@@ -503,8 +451,14 @@ public class Lotta extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        String str = jList1.getSelectedValue();
-        Attacco(c.getMossaByName(str));
+        if (c.turno) {
+            String str = jList1.getSelectedValue();
+            Attacco(c.getMossaByName(str));
+            c.turno = false;
+        } else {
+            AlertTurno();
+        }
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**

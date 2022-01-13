@@ -22,9 +22,9 @@ public class Messaggio_Oggetto extends Messaggio {
 
     @Override
     public void execute() {
+
         try {
             String[] csv = new String(packet.getData()).split(";");
-            //og + nome oggetto
             String nome = csv[0];
             Consumabile ogg = c.getOggettoByName(nome);
             if (ogg != null) {
@@ -33,6 +33,7 @@ public class Messaggio_Oggetto extends Messaggio {
         } catch (SocketException ex) {
             Logger.getLogger(Messaggio_Oggetto.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
 }
