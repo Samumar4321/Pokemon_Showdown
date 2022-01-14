@@ -10,6 +10,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +24,7 @@ public class Messaggio_Attacco extends Messaggio {
 
     @Override
     public void execute() {
+
         try {
             Pokemon pAttuale = c.squadra.get(c.pokemonAttuale);
             //at nomemossa danno effetto
@@ -34,8 +36,13 @@ public class Messaggio_Attacco extends Messaggio {
                 double molt = (c.efficaciaTipo(m.getTipo(), c.squadra.get(c.pokemonAttuale).getTipi()));
                 danno = (int) ((((42) * ((danno) / pAttuale.getDifesa())) / 50) * molt); //mancano gli eventuali buff e debuff
                 pAttuale.setVitaAttuale(pAttuale.getVitaAttuale() - danno);
+                System.out.println("MOSSA AVVERSARIO: " + m.toString());
+                c.frame.repaint();
                 if (pAttuale.getVitaAttuale() <= 0) {
                     c.numePokemon--;
+                }
+                if (danno == 0) {
+                    JOptionPane.showMessageDialog(c.frame, "RESISTE ALLA MOSSA!!!!!");
                 }
 //            if (molt >= 0.0 && molt < 1.0) {
 //                //poco efficace
@@ -48,12 +55,12 @@ public class Messaggio_Attacco extends Messaggio {
                 //miss
             }
             String str = "";
-            str = "p;" + pAttuale.getNome() + ";" + pAttuale.getVitaAttuale() + ";" + c.numePokemon + ";" + pAttuale.getImgFront() + ";";
-            send(str);
-            c.turno = true;
+            str = "hp;" + pAttuale.getVitaAttuale() + ";";
+            send(str);          
         } catch (IOException ex) {
             Logger.getLogger(Messaggio_Attacco.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
 }

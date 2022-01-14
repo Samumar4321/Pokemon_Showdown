@@ -73,8 +73,7 @@ public class Gestore_Packet {
                 case "p": {
                     System.out.println("CAMBIO POKLEMON");
                     Messaggio_Pokemon mp = new Messaggio_Pokemon(p);
-                    mp.execute();
-                    c.turno = true;
+                    mp.execute();               
                     break;
                 }
                 case "at": {
@@ -88,6 +87,11 @@ public class Gestore_Packet {
                     Messaggio_Oggetto mo = new Messaggio_Oggetto(p);
                     mo.execute();
                     c.turno = true;
+                    break;
+                }
+                case "hp": {
+                    Messaggio_Pokemon mp = new Messaggio_Pokemon(p);
+                    mp.execute();
                     break;
                 }
 

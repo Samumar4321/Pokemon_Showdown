@@ -1,0 +1,16 @@
+\avvelenamento;L'avvelenamento fa perdere gradualmente PS a chi lo subisce. Fino alla quarta generazione continuava ad infliggere danni anche al di fuori della lotta. Dell'avvelenamento esiste anche una variante, detta iperavvelenamento, in cui il danno ai PS raddoppia ad ogni turno;PS raddoppia ad ogni turno;
+\congelamento;Il congelamento rende il Pokémon incapace di attaccare;per 1 turno;
+paralisi;La paralisi riduce la Velocità ed a volte impedisce di attaccare; per 1 turno;
+\scottatura;La scottatura riduce l'Attacco e fa perdere gradualmente un po' di salute;per 3 turni;
+\sonno;Il sonno rende il Pokémon incapace di usare la maggior parte delle mosse per alcuni turni;per 2 turni;
+\confusione;Un Pokémon confuso ha una probabilità del 50% di colpirsi da solo invece che attaccare;per 2 turni;
+infatuazione;Un Pokémon che è infatuato del suo nemico ha una probabilità del 50% di non attaccare;per 2 turni;
+tentennamento;
+centro dell'attenzione;
+identificazione;
+imprigionamento;
+incubo;
+invulnerabilità;
+
+https://wiki.pokemoncentral.it/Effetti_in_lotta#Avvelenamento
+

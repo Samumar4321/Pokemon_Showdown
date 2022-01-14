@@ -4,6 +4,7 @@
  */
 package pokemon;
 
+import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.io.IOException;
@@ -42,11 +43,10 @@ public class Lotta extends javax.swing.JFrame {
     private DefaultListModel<String> modelMosse, modelNomi;
     private JList<String> list;
 
-
     public Lotta() throws SocketException, IOException {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        c = Condivisa.getInstance();      
+        c = Condivisa.getInstance();
         jLabel6.setText("---");
         jLabel7.setText("---");
         jLabel8.setText("---");
@@ -227,6 +227,11 @@ public class Lotta extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -306,6 +311,7 @@ public class Lotta extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(51, 51, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/seleziona.png"))); // NOI18N
         jButton2.setText("SELEZIONA");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,7 +374,8 @@ public class Lotta extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //SELEZIONA
-        if (c.turno) {
+        c.frame = this;
+        //if (c.turno) {
 
             jProgressBar1.setVisible(true);
             modelMosse.clear();
@@ -427,11 +434,10 @@ public class Lotta extends javax.swing.JFrame {
             jLabel15.setText(pokemon.getNome());
             caricaMosseSignoloPokemon(pokemon);
             CambioPokemon(pokemon);
-            c.turno = false;
 
-        } else {
-            AlertTurno();
-        }
+//        } else {
+//            AlertTurno();
+//        }
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -460,6 +466,10 @@ public class Lotta extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,11 +533,11 @@ public class Lotta extends javax.swing.JFrame {
             packet.setPort(port);
             c.serverInvio.send(packet);
         } catch (SocketException ex) {
-            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
-            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(TestConnessioneFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -550,20 +560,20 @@ public class Lotta extends javax.swing.JFrame {
                     Condivisa.getInstance().serverInvio.send(packet);
                     c.nomeDestinatario = "";
                 } catch (SocketException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class
+                    Logger.getLogger(Lotta.class
                             .getName()).log(Level.SEVERE, null, ex);
                 } catch (UnknownHostException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class
+                    Logger.getLogger(Lotta.class
                             .getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(TestConnessioneFrame.class
+                    Logger.getLogger(Lotta.class
                             .getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Connettersi con un host");
             }
         } catch (SocketException ex) {
-            Logger.getLogger(TestConnessioneFrame.class
+            Logger.getLogger(Lotta.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -582,15 +592,23 @@ public class Lotta extends javax.swing.JFrame {
             packet.setPort(port);
             c.serverInvio.send(packet);
         } catch (SocketException ex) {
-            Logger.getLogger(TestConnessioneFrame.class
+            Logger.getLogger(Lotta.class
                     .getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
-            Logger.getLogger(TestConnessioneFrame.class
+            Logger.getLogger(Lotta.class
                     .getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(TestConnessioneFrame.class
+            Logger.getLogger(Lotta.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g); //To change body of generated methods, choose Tools | Templates.        
+        jLabel6.setText(String.valueOf(pokemon.getVitaAttuale()));
+        jLabel7.setText(String.valueOf(pokemon.getAttacco()));
+        jLabel8.setText(String.valueOf(pokemon.getDifesa()));
     }
 
 

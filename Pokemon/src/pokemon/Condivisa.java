@@ -50,7 +50,7 @@ public class Condivisa {
         mosse = new ArrayList();
         effetti = new ArrayList();
         tipi = new ArrayList<Tipo>();
-        frame = new Frame();
+        frame = new Frame();  
         squadra = new ArrayList<Pokemon>();
         pokemonAttuale = 0;
         this.serverRicezione = new DatagramSocket(12345);
