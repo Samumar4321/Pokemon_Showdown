@@ -35,10 +35,14 @@ public class Messaggio_Pokemon extends Messaggio {
             }
         } else if (action.equals("hp")) {
             if (c.pokemonAvversario != null) {
-                c.pokemonAvversario.setVitaAttuale(Integer.parseInt(csv[1]));
+                if (!csv[1].equals("0")) {
+                    c.pokemonAvversario.setVitaAttuale(Integer.parseInt(csv[1]));
+
+                } else {
+                    c.pokemonAvversario.setVitaAttuale(0);
+                }
                 System.out.println("HP AVVERSARIO: " + c.pokemonAvversario.toString());
             }
-
         }
     }
 }

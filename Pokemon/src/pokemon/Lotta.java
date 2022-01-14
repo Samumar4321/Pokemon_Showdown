@@ -33,9 +33,8 @@ public class Lotta extends javax.swing.JFrame {
     /**
      * Creates new form Lotta
      */
-    int port = 12345;
+    int port = 12346;
     Condivisa c;
-    Pokemon pokemon;
     String nomeP;
     Mossa mossa;
     Image img;
@@ -54,13 +53,11 @@ public class Lotta extends javax.swing.JFrame {
         jLabel13.setText("---");
         jLabel14.setText("---");
         jProgressBar1.setVisible(false);
-        pokemon = new Pokemon();
         modelMosse = new DefaultListModel<>();
         modelNomi = new DefaultListModel<>();
 
         for (int i = 0; i < c.squadra.size(); i++) {
-            pokemon = c.squadra.get(i);
-            modelNomi.addElement(pokemon.getNome());
+            modelNomi.addElement(c.squadra.get(i).getNome());
         }
 
         jList2.setModel(modelNomi);
@@ -375,71 +372,65 @@ public class Lotta extends javax.swing.JFrame {
         // TODO add your handling code here:
         //SELEZIONA
         c.frame = this;
-        //if (c.turno) {
 
-            jProgressBar1.setVisible(true);
-            modelMosse.clear();
-            jList1.setModel(modelMosse);
+        jProgressBar1.setVisible(true);
+        modelMosse.clear();
+        jList1.setModel(modelMosse);
 
-            jLabel12.setText("---");
-            jLabel13.setText("---");
-            jLabel14.setText("---");
+        jLabel12.setText("---");
+        jLabel13.setText("---");
+        jLabel14.setText("---");
 
-            String str = jList2.getSelectedValue();
-
-            if (str.equals("Magnezone")) {
-                pokemon = c.getPokemonByName("Magnezone");
-            }
-
-            if (str.equals("Latios")) {
-                pokemon = c.getPokemonByName("Latios");
-            }
-
-            if (str.equals("Giratina")) {
-                pokemon = c.getPokemonByName("Giratina");
-            }
-
-            if (str.equals("Electabuzz")) {
-                pokemon = c.getPokemonByName("Electabuzz");
-            }
-
-            if (str.equals("Lapras")) {
-                pokemon = c.getPokemonByName("Lapras");
-            }
-
-            if (str.equals("Charizard")) {
-                pokemon = c.getPokemonByName("Charizard");
-            }
-
-            if (str.equals("Wailord")) {
-                pokemon = c.getPokemonByName("Wailord");
-            }
-
-            if (str.equals("Golbat")) {
-                pokemon = c.getPokemonByName("Golbat");
-            }
-
-            if (str.equals("Sceptile")) {
-                pokemon = c.getPokemonByName("Sceptile");
-            }
-
-            if (str.equals("Mew")) {
-                pokemon = c.getPokemonByName("Mew");
-            }
-
-            jLabel1.setIcon(setIconSelected(pokemon.getImgBack()));
-            jLabel6.setText(String.valueOf(pokemon.getVitaAttuale()));
-            jLabel7.setText(String.valueOf(pokemon.getAttacco()));
-            jLabel8.setText(String.valueOf(pokemon.getDifesa()));
-            jLabel15.setText(pokemon.getNome());
-            caricaMosseSignoloPokemon(pokemon);
-            CambioPokemon(pokemon);
-
-//        } else {
-//            AlertTurno();
+        c.pokemonAttuale = jList2.getSelectedIndex();
+        Pokemon pokemon = c.squadra.get(c.pokemonAttuale);
+//        pokemon = c.getPokemonByName(str);
+//        if (str.equals("Magnezone")) {
+//            pokemon = c.getPokemonByName("Magnezone");
+//        }
+//
+//        if (str.equals("Latios")) {
+//            pokemon = c.getPokemonByName("Latios");
+//        }
+//
+//        if (str.equals("Giratina")) {
+//            pokemon = c.getPokemonByName("Giratina");
+//        }
+//
+//        if (str.equals("Electabuzz")) {
+//            pokemon = c.getPokemonByName("Electabuzz");
+//        }
+//
+//        if (str.equals("Lapras")) {
+//            pokemon = c.getPokemonByName("Lapras");
+//        }
+//
+//        if (str.equals("Charizard")) {
+//            pokemon = c.getPokemonByName("Charizard");
+//        }
+//
+//        if (str.equals("Wailord")) {
+//            pokemon = c.getPokemonByName("Wailord");
+//        }
+//
+//        if (str.equals("Golbat")) {
+//            pokemon = c.getPokemonByName("Golbat");
+//        }
+//
+//        if (str.equals("Sceptile")) {
+//            pokemon = c.getPokemonByName("Sceptile");
+//        }
+//
+//        if (str.equals("Mew")) {
+//            pokemon = c.getPokemonByName("Mew");
 //        }
 
-
+        jLabel1.setIcon(setIconSelected(pokemon.getImgBack()));
+        jLabel6.setText(String.valueOf(pokemon.getVitaAttuale()));
+        jLabel7.setText(String.valueOf(pokemon.getAttacco()));
+        jLabel8.setText(String.valueOf(pokemon.getDifesa()));
+        jLabel15.setText(pokemon.getNome());
+        caricaMosseSignoloPokemon(pokemon);
+        CambioPokemon(pokemon);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
@@ -488,13 +479,17 @@ public class Lotta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Lotta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lotta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Lotta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lotta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Lotta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lotta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Lotta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Lotta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -503,9 +498,11 @@ public class Lotta extends javax.swing.JFrame {
             try {
                 new Lotta().setVisible(true);
             } catch (SocketException ex) {
-                Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Lotta.class
+                        .getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Lotta.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -533,11 +530,14 @@ public class Lotta extends javax.swing.JFrame {
             packet.setPort(port);
             c.serverInvio.send(packet);
         } catch (SocketException ex) {
-            Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Lotta.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
-            Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Lotta.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Lotta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Lotta.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -605,7 +605,8 @@ public class Lotta extends javax.swing.JFrame {
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g); //To change body of generated methods, choose Tools | Templates.        
+        super.paint(g); //To change body of generated methods, choose Tools | Templates.      
+        Pokemon pokemon = c.squadra.get(c.pokemonAttuale);
         jLabel6.setText(String.valueOf(pokemon.getVitaAttuale()));
         jLabel7.setText(String.valueOf(pokemon.getAttacco()));
         jLabel8.setText(String.valueOf(pokemon.getDifesa()));
